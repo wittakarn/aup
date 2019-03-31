@@ -45,7 +45,7 @@ public class BasePage implements Serializable {
     }
 
     protected String getDefaultText(WebElement element) {
-        return element == null ? "" : element.getText();
+        return element == null ? "" : element.getText().trim();
     }
 
     protected WebElement getLastElement(WebElement element, By by) {
