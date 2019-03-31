@@ -3304,7 +3304,7 @@ var SettingService;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["get"]('/botorder/rest/setting/get');
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["get"]('/aup/rest/setting/get');
                         return [4 /*yield*/, agent.type('application/json')];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -3319,7 +3319,7 @@ var SettingService;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/botorder/rest/setting/create');
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/aup/rest/setting/create');
                         return [4 /*yield*/, agent.type('application/json').send(setting)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -3389,7 +3389,7 @@ var UserSettingService;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["get"]('/botorder/rest/usersetting/get');
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["get"]('/aup/rest/usersetting/get');
                         return [4 /*yield*/, agent.type('application/json')];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -3404,7 +3404,7 @@ var UserSettingService;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/botorder/rest/usersetting/create');
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/aup/rest/usersetting/create');
                         return [4 /*yield*/, agent.type('application/json').send(setting)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -3474,7 +3474,7 @@ var ControllerService;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/botorder/rest/controller/processrequest');
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/aup/rest/controller/processrequest');
                         return [4 /*yield*/, agent.type('application/json').send('start')];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -3489,7 +3489,7 @@ var ControllerService;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/botorder/rest/controller/processrequest');
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/aup/rest/controller/processrequest');
                         return [4 /*yield*/, agent.type('application/json').send('stop')];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
