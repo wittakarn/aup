@@ -122,9 +122,6 @@ public class ServiceWorker implements Runnable {
         PageHelper.waitUtilPageLoad(driver);
         ProductPage productPage = new ProductPage(driver);
 
-        Befrugal befrugal = new Befrugal(driver);
-        befrugal.applyCoupon(Coupon.BEFRUGAL_URL, ApplicationContext.BEFRUGAL_USER, ApplicationContext.BEFRUGAL_PASSWORD);
-
         ShoppingCart shoppingCart = new ShoppingCart(driver);
         shoppingCart.PerformCheckout();
         PageHelper.waitUtilPageLoad(driver);

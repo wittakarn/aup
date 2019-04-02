@@ -6,18 +6,18 @@
 package com.thaisoftplus.aup.business;
 
 import com.thaisoftplus.aup.context.ApplicationContext;
-import com.thaisoftplus.aup.jpa.entity.UserSetting;
+import com.thaisoftplus.aup.jpa.entity.DataSetting;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author witta
  */
-public class UserSettingBusiness {
+public class DataSettingBusiness {
 
-    private UserSetting setting;
+    private DataSetting setting;
 
-    public UserSettingBusiness(UserSetting setting) {
+    public DataSettingBusiness(DataSetting setting) {
         this.setting = setting;
     }
 
@@ -27,9 +27,9 @@ public class UserSettingBusiness {
     }
 
     public void updateContext() {
-        ApplicationContext.AMAZON_USER = setting.getAmazonUser();
-        ApplicationContext.AMAZON_PASSWORD = setting.getAmazonPassword();
-        ApplicationContext.BEFRUGAL_USER = setting.getBefrugalUser();
-        ApplicationContext.BEFRUGAL_PASSWORD = setting.getBefrugalPassword();
+//        ApplicationContext.AMAZON_USER = setting.getAmazonUser();
+//        ApplicationContext.AMAZON_PASSWORD = setting.getAmazonPassword();
+//        ApplicationContext.BEFRUGAL_USER = setting.getBefrugalUser();
+//        ApplicationContext.BEFRUGAL_PASSWORD = setting.getBefrugalPassword();
     }
 }

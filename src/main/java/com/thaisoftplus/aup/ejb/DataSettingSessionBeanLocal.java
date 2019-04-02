@@ -5,7 +5,7 @@
  */
 package com.thaisoftplus.aup.ejb;
 
-import com.thaisoftplus.aup.jpa.entity.Setting;
+import com.thaisoftplus.aup.jpa.entity.DataSetting;
 import java.io.Serializable;
 import javax.ejb.Remote;
 
@@ -14,9 +14,9 @@ import javax.ejb.Remote;
  * @author witta
  */
 @Remote
-public interface SettingSessionBeanLocal extends Serializable {
+public interface DataSettingSessionBeanLocal extends Serializable {
 
-    public void create(Setting setting) throws Exception;
+    public void create(DataSetting setting) throws Exception;
     public void init();
-    public Setting getLastedSetting();
+    public DataSetting getLastedSetting();
 }

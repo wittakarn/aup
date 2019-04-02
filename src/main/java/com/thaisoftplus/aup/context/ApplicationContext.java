@@ -24,8 +24,6 @@ public class ApplicationContext {
 
     public static String AMAZON_USER = "Rufussa6594@gmail.com";
     public static String AMAZON_PASSWORD = "VS8X0UYUDz8A";
-    public static String BEFRUGAL_USER = "CashbacktestAA19@gmail.com";
-    public static String BEFRUGAL_PASSWORD = "Cash15Cash";
 
     public static String SPREAD_SHEET_ID = "1aACCABPWR2JEpWZs5QkoUFlzJHdcvLpmOlGvZKR4gQk";
     public static String SPREAD_TAB_NAME = "Input File";

@@ -5,9 +5,9 @@
  */
 package com.thaisoftplus.aup.ejb;
 
-import com.thaisoftplus.aup.business.SettingBusiness;
-import com.thaisoftplus.aup.jpa.entity.Setting;
-import com.thaisoftplus.aup.query.SettingQuery;
+import com.thaisoftplus.aup.business.DataSettingBusiness;
+import com.thaisoftplus.aup.jpa.entity.DataSetting;
+import com.thaisoftplus.aup.query.DataSettingQuery;
 import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -25,18 +25,18 @@ import org.slf4j.LoggerFactory;
  */
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 @TransactionManagement(TransactionManagementType.CONTAINER)
-@Stateless(name = "SettingSessionBean", mappedName = "settingSessionBean")
-public class SettingSessionBean implements SettingSessionBeanLocal, Serializable {
+@Stateless(name = "DataSettingSessionBean", mappedName = "dataSettingSessionBean")
+public class DataSettingSessionBean implements DataSettingSessionBeanLocal, Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(SettingSessionBean.class);
+    private static final Logger logger = LoggerFactory.getLogger(DataSettingSessionBean.class);
 
     @PersistenceContext(unitName = "aup")
     private EntityManager em;
 
     @Override
-    public void create(Setting setting) throws Exception {
+    public void create(DataSetting setting) throws Exception {
         logger.trace("Begin create...");
-        SettingBusiness business = new SettingBusiness(setting);
+        DataSettingBusiness business = new DataSettingBusiness(setting);
         try {
             business.createSetting(em);
         } finally {
@@ -48,7 +48,7 @@ public class SettingSessionBean implements SettingSessionBeanLocal, Serializable
     public void init() {
         logger.trace("Begin init...");
         try {
-            SettingBusiness business = new SettingBusiness(SettingQuery.getLastedSetting(em));
+            DataSettingBusiness business = new DataSettingBusiness(DataSettingQuery.getLastedSetting(em));
             business.updateContext();
         } finally {
             logger.trace("End init...");
@@ -56,10 +56,10 @@ public class SettingSessionBean implements SettingSessionBeanLocal, Serializable
     }
 
     @Override
-    public Setting getLastedSetting() {
+    public DataSetting getLastedSetting() {
         logger.trace("Begin getLastedSetting...");
         try {
-            return SettingQuery.getLastedSetting(em);
+            return DataSettingQuery.getLastedSetting(em);
         } finally {
             logger.trace("End getLastedSetting...");
         }

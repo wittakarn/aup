@@ -7,11 +7,8 @@ package com.thaisoftplus.aup.rest.service;
 
 import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.domain.ResponseMessage;
-import com.thaisoftplus.aup.ejb.SettingSessionBean;
-import com.thaisoftplus.aup.ejb.SettingSessionBeanLocal;
 import com.thaisoftplus.aup.thread.ServiceWorker;
 import java.util.concurrent.Executors;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -31,10 +28,7 @@ import org.slf4j.LoggerFactory;
 @Path("controller")
 public class ControllerService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SettingSessionBean.class);
-
-    @EJB
-    private SettingSessionBeanLocal settingSessionBeanLocal;
+    private static final Logger logger = LoggerFactory.getLogger(ControllerService.class);
 
     public ControllerService() {
     }

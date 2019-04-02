@@ -6,8 +6,6 @@
 package com.thaisoftplus.aup.servlet;
 
 import com.thaisoftplus.aup.context.ApplicationContext;
-import com.thaisoftplus.aup.ejb.SettingSessionBeanLocal;
-import com.thaisoftplus.aup.ejb.UserSettingSessionBeanLocal;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
+import com.thaisoftplus.aup.ejb.DataSettingSessionBeanLocal;
 
 /**
  *
@@ -32,9 +31,7 @@ public class InitialConfig extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(InitialConfig.class);
 
     @EJB
-    private SettingSessionBeanLocal settingSessionBeanLocal;
-    @EJB
-    private UserSettingSessionBeanLocal userSettingSessionBeanLocal;
+    private DataSettingSessionBeanLocal userSettingSessionBeanLocal;
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
@@ -64,7 +61,6 @@ public class InitialConfig extends HttpServlet {
                 logger.info("HashMap {} : {}", key, value);
             }
             System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
-            settingSessionBeanLocal.init();
             userSettingSessionBeanLocal.init();
         } catch (Exception ex) {
             logger.error("", ex);

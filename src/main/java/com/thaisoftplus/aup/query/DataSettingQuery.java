@@ -5,7 +5,7 @@
  */
 package com.thaisoftplus.aup.query;
 
-import com.thaisoftplus.aup.jpa.entity.Setting;
+import com.thaisoftplus.aup.jpa.entity.DataSetting;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -16,21 +16,21 @@ import org.slf4j.LoggerFactory;
  *
  * @author Wittakarn
  */
-public class SettingQuery implements Serializable {
+public class DataSettingQuery implements Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(SettingQuery.class);
+    private static final Logger logger = LoggerFactory.getLogger(DataSettingQuery.class);
 
-    public static Setting getLastedSetting(EntityManager em) {
+    public static DataSetting getLastedSetting(EntityManager em) {
         logger.trace("Begin getLastedId");
         try {
-            Query query = em.createQuery("SELECT max(s.id) FROM Setting s");
+            Query query = em.createQuery("SELECT max(d.version) FROM DataSetting d");
             Object lastedIndexObj = query.getSingleResult();
             int lastedIndex = 0;
             if (lastedIndexObj != null) {
                 lastedIndex = (int) lastedIndexObj;
-                query = em.createQuery("SELECT s FROM Setting s WHERE s.id = :id");
-                query.setParameter("id", lastedIndex);
-                return (Setting) query.getSingleResult();
+                query = em.createQuery("SELECT d FROM DataSetting d WHERE u.version = :version");
+                query.setParameter("version", lastedIndex);
+                return (DataSetting) query.getSingleResult();
             } else {
                 return null;
             }

@@ -6,9 +6,6 @@
 package com.thaisoftplus.aup.rest.service;
 
 import com.thaisoftplus.aup.domain.ResponseMessage;
-import com.thaisoftplus.aup.ejb.SettingSessionBean;
-import com.thaisoftplus.aup.ejb.UserSettingSessionBeanLocal;
-import com.thaisoftplus.aup.jpa.entity.UserSetting;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +19,8 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.thaisoftplus.aup.ejb.DataSettingSessionBeanLocal;
+import com.thaisoftplus.aup.jpa.entity.DataSetting;
 
 /**
  * REST Web Service
@@ -29,33 +28,34 @@ import org.slf4j.LoggerFactory;
  * @author witta
  */
 @Stateless
-@Path("usersetting")
-public class UserSettingService {
-
-    private static final Logger logger = LoggerFactory.getLogger(SettingSessionBean.class);
+@Path("datasetting")
+public class DataSettingService {
+    
+    private static final Logger logger = LoggerFactory.getLogger(DataSettingService.class);
+    
     @EJB
-    private UserSettingSessionBeanLocal userSettingSessionBeanLocal;
+    private DataSettingSessionBeanLocal dataSettingSessionBeanLocal;
     @Context
     private HttpServletRequest request;
 
-    public UserSettingService() {
+    public DataSettingService() {
     }
 
     @GET
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
-    public UserSetting getJson() {
-        return "true".equals(request.getSession().getAttribute("isAdminPrivilege")) ? userSettingSessionBeanLocal.getLastedSetting() : null;
+    public DataSetting getJson() {
+        return "true".equals(request.getSession().getAttribute("isAdminPrivilege")) ? dataSettingSessionBeanLocal.getLastedSetting() : null;
     }
 
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseMessage createSetting(UserSetting setting) {
+    public ResponseMessage createSetting(DataSetting setting) {
         ResponseMessage resp = new ResponseMessage();
         try {
-            userSettingSessionBeanLocal.create(setting);
+            dataSettingSessionBeanLocal.create(setting);
             resp.setMessage(String.format("บันทึกข้อมูลเรียบร้อยแล้ว"));
         } catch (Exception e) {
             logger.error("", e);
