@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DataSetting.findByNewData", query = "SELECT d FROM DataSetting d WHERE d.newData = :newData"),
     @NamedQuery(name = "DataSetting.findByAsinCrawling", query = "SELECT d FROM DataSetting d WHERE d.asinCrawling = :asinCrawling"),
     @NamedQuery(name = "DataSetting.findByReviewScore", query = "SELECT d FROM DataSetting d WHERE d.reviewScore = :reviewScore"),
+    @NamedQuery(name = "DataSetting.findByReview", query = "SELECT d FROM DataSetting d WHERE d.review = :review"),
     @NamedQuery(name = "DataSetting.findBySellerName1", query = "SELECT d FROM DataSetting d WHERE d.sellerName1 = :sellerName1"),
     @NamedQuery(name = "DataSetting.findByPrice1", query = "SELECT d FROM DataSetting d WHERE d.price1 = :price1"),
     @NamedQuery(name = "DataSetting.findByShipping1", query = "SELECT d FROM DataSetting d WHERE d.shipping1 = :shipping1"),
@@ -99,6 +100,11 @@ public class DataSetting implements Serializable {
     @Size(min = 1, max = 3)
     @Column(name = "review_score")
     private String reviewScore;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 3)
+    @Column(name = "review")
+    private String review;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
@@ -237,7 +243,7 @@ public class DataSetting implements Serializable {
         this.version = version;
     }
 
-    public DataSetting(Integer version, String link, String asin, String oldData, String newData, String asinCrawling, String reviewScore, String sellerName1, String price1, String shipping1, String addOn1, String type1, String wid1, String sellerName2, String price2, String shipping2, String addOn2, String type2, String wid2, String sellerName3, String price3, String shipping3, String addOn3, String type3, String wid3, String updateStatus, String sku, String asinApi, String priceApi, String minAllowPrice, String maxAllowPrice, String quantity, String leadTime) {
+    public DataSetting(Integer version, String link, String asin, String oldData, String newData, String asinCrawling, String reviewScore, String review, String sellerName1, String price1, String shipping1, String addOn1, String type1, String wid1, String sellerName2, String price2, String shipping2, String addOn2, String type2, String wid2, String sellerName3, String price3, String shipping3, String addOn3, String type3, String wid3, String updateStatus, String sku, String asinApi, String priceApi, String minAllowPrice, String maxAllowPrice, String quantity, String leadTime) {
         this.version = version;
         this.link = link;
         this.asin = asin;
@@ -245,6 +251,7 @@ public class DataSetting implements Serializable {
         this.newData = newData;
         this.asinCrawling = asinCrawling;
         this.reviewScore = reviewScore;
+        this.review = review;
         this.sellerName1 = sellerName1;
         this.price1 = price1;
         this.shipping1 = shipping1;
@@ -327,6 +334,14 @@ public class DataSetting implements Serializable {
 
     public void setReviewScore(String reviewScore) {
         this.reviewScore = reviewScore;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
     }
 
     public String getSellerName1() {

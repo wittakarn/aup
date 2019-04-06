@@ -28,7 +28,7 @@ public class DataSettingQuery implements Serializable {
             int lastedIndex = 0;
             if (lastedIndexObj != null) {
                 lastedIndex = (int) lastedIndexObj;
-                query = em.createQuery("SELECT d FROM DataSetting d WHERE u.version = :version");
+                query = em.createQuery("SELECT d FROM DataSetting d WHERE d.version = :version");
                 query.setParameter("version", lastedIndex);
                 return (DataSetting) query.getSingleResult();
             } else {

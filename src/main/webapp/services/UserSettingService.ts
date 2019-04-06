@@ -1,5 +1,5 @@
 import * as superagent from 'superagent';
-import { UserSetting } from 'interfaces/SettingPage';
+import { DataSetting } from 'interfaces/DataSettingPage';
 
 export namespace UserSettingService {
     export async function get() {
@@ -7,7 +7,7 @@ export namespace UserSettingService {
         return await agent.type('application/json')
     };
 
-    export async function create(setting: UserSetting): Promise<superagent.Response> {
+    export async function create(setting: DataSetting): Promise<superagent.Response> {
         const agent = superagent['post']('/aup/rest/usersetting/create');
         return await agent.type('application/json').send(setting);
     };

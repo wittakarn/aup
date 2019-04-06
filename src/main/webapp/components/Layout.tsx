@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { SettingPage } from './setting-page/SettingPage';
+import { DataSettingPage } from './setting-page/DataSettingPage';
 
 import './grid.scss';
-import { UserSettingPage } from './setting-page/UserSettingPage';
 
 interface Props {
 }
@@ -16,8 +15,7 @@ export class Layout extends React.Component<Props, {}> {
     render() {
         return (
             <div className="container container--center" >
-                <UserSettingPage />
-                <SettingPage />
+                <DataSettingPage />
             </div>
         );
     }

@@ -45,7 +45,7 @@ public class DataSettingService {
     @Path("/get")
     @Produces(MediaType.APPLICATION_JSON)
     public DataSetting getJson() {
-        return "true".equals(request.getSession().getAttribute("isAdminPrivilege")) ? dataSettingSessionBeanLocal.getLastedSetting() : null;
+        return dataSettingSessionBeanLocal.getLastedSetting();
     }
 
     @POST

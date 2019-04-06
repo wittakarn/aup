@@ -2818,10 +2818,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Layout", function() { return Layout; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _setting_page_SettingPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setting-page/SettingPage */ "./src/main/webapp/components/setting-page/SettingPage.tsx");
+/* harmony import */ var _setting_page_DataSettingPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./setting-page/DataSettingPage */ "./src/main/webapp/components/setting-page/DataSettingPage.tsx");
 /* harmony import */ var _grid_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./grid.scss */ "./src/main/webapp/components/grid.scss");
 /* harmony import */ var _grid_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_grid_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _setting_page_UserSettingPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setting-page/UserSettingPage */ "./src/main/webapp/components/setting-page/UserSettingPage.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -2838,7 +2837,6 @@ var __extends = (undefined && undefined.__extends) || (function () {
 
 
 
-
 var Layout = /** @class */ (function (_super) {
     __extends(Layout, _super);
     function Layout(props) {
@@ -2846,8 +2844,7 @@ var Layout = /** @class */ (function (_super) {
     }
     Layout.prototype.render = function () {
         return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "container container--center" },
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](_setting_page_UserSettingPage__WEBPACK_IMPORTED_MODULE_3__["UserSettingPage"], null),
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](_setting_page_SettingPage__WEBPACK_IMPORTED_MODULE_1__["SettingPage"], null)));
+            react__WEBPACK_IMPORTED_MODULE_0__["createElement"](_setting_page_DataSettingPage__WEBPACK_IMPORTED_MODULE_1__["DataSettingPage"], null)));
     };
     return Layout;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
@@ -2886,16 +2883,16 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./src/main/webapp/components/setting-page/SettingPage.tsx":
-/*!*****************************************************************!*\
-  !*** ./src/main/webapp/components/setting-page/SettingPage.tsx ***!
-  \*****************************************************************/
-/*! exports provided: SettingPage */
+/***/ "./src/main/webapp/components/setting-page/DataSettingPage.tsx":
+/*!*********************************************************************!*\
+  !*** ./src/main/webapp/components/setting-page/DataSettingPage.tsx ***!
+  \*********************************************************************/
+/*! exports provided: DataSettingPage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingPage", function() { return SettingPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataSettingPage", function() { return DataSettingPage; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var services_SettingService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! services/SettingService */ "./src/main/webapp/services/SettingService.ts");
@@ -2924,136 +2921,97 @@ var __assign = (undefined && undefined.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
 
 
-var SettingPage = /** @class */ (function (_super) {
-    __extends(SettingPage, _super);
-    function SettingPage(props) {
+var DataSettingPage = /** @class */ (function (_super) {
+    __extends(DataSettingPage, _super);
+    function DataSettingPage(props) {
         var _this = _super.call(this, props) || this;
+        _this.defaultSetting = {
+            link: '',
+            asin: '',
+            oldData: '',
+            newData: '',
+            asinCrawling: '',
+            reviewScore: '',
+            review: '',
+            sellerName1: '',
+            price1: '',
+            shipping1: '',
+            addOn1: '',
+            type1: '',
+            wid1: '',
+            sellerName2: '',
+            price2: '',
+            shipping2: '',
+            addOn2: '',
+            type2: '',
+            wid2: '',
+            sellerName3: '',
+            price3: '',
+            shipping3: '',
+            addOn3: '',
+            type3: '',
+            wid3: '',
+            updateStatus: '',
+            sku: '',
+            asinApi: '',
+            priceApi: '',
+            minAllowPrice: '',
+            maxAllowPrice: '',
+            quantity: '',
+            leadTime: '',
+        };
         _this.handleChange = function (event) {
             var _a;
             var _b = event.target, name = _b.name, value = _b.value;
             _this.setState({ field: __assign({}, _this.state.field, (_a = {}, _a[name] = value, _a)) });
         };
-        _this.generateSheetIdInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Sheet id"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "sheetId", value: _this.state.field && _this.state.field.sheetId, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
+        _this.generateDataSettingInput = function () {
+            return Object.keys(_this.defaultSetting).map(function (p) { return _this.generateInputText(p); });
         };
-        _this.generateSpreadTabInput = function () {
+        _this.generateInputText = function (key) {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Sheet tab"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "sheetTab", value: _this.state.field && _this.state.field.sheetTab, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateStartRowInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Start row"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "startRow", value: _this.state.field && _this.state.field.startRow, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateStaffNameColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Staff name column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "staffName", value: _this.state.field && _this.state.field.staffName, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateVendorColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Vendor column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "vendor", value: _this.state.field && _this.state.field.vendor, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateShippingNameColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Shipping name column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "shippingName", value: _this.state.field && _this.state.field.shippingName, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateshippingLastnameColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Shipping last name column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "shippingLastname", value: _this.state.field && _this.state.field.shippingLastname, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateAddress1ColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Address 1 column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "address1", value: _this.state.field && _this.state.field.address1, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateAddress2ColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Address 2 column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "address2", value: _this.state.field && _this.state.field.address2, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateCityColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "City column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "city", value: _this.state.field && _this.state.field.city, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateStateColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "State column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "state", value: _this.state.field && _this.state.field.state, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateZipColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Zip column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "zip", value: _this.state.field && _this.state.field.zip, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generatePhoneColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Phone column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "phone", value: _this.state.field && _this.state.field.phone, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateToBuyColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "To buy column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "toBuy", value: _this.state.field && _this.state.field.toBuy, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generatePayToVendorColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Pay to vendor column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "payToVendor", value: _this.state.field && _this.state.field.payToVendor, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateOrderProcessColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Order process column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "orderProcess", value: _this.state.field && _this.state.field.orderProcess, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateVendorIdColumnInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Vendor id column"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "vendorId", value: _this.state.field && _this.state.field.vendorId, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, key),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-3" },
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: key, value: _this.state.field && _this.state.field[key], onChange: _this.handleChange })),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-7" })));
         };
         _this.generateCreateButton = function () {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
@@ -3064,14 +3022,30 @@ var SettingPage = /** @class */ (function (_super) {
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { type: "button", onClick: _this.start }, "Start"),
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { type: "button", onClick: _this.stop }, "Stop")));
         };
-        _this.getSetting = function () {
-            var promise = services_SettingService__WEBPACK_IMPORTED_MODULE_1__["SettingService"].get();
-            promise.then(function (response) { return _this.setState({ field: __assign({}, response.body) }); });
-        };
-        _this.createNewSetting = function () {
-            var promise = services_SettingService__WEBPACK_IMPORTED_MODULE_1__["SettingService"].create(_this.state.field);
-            promise.then(function (response) { return alert(response.body.message); });
-        };
+        _this.getSetting = function () { return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, services_SettingService__WEBPACK_IMPORTED_MODULE_1__["SettingService"].get()];
+                    case 1:
+                        response = _a.sent();
+                        this.setState({ field: __assign({}, response.body) });
+                        return [2 /*return*/];
+                }
+            });
+        }); };
+        _this.createNewSetting = function () { return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, services_SettingService__WEBPACK_IMPORTED_MODULE_1__["SettingService"].create(this.state.field)];
+                    case 1:
+                        response = _a.sent();
+                        alert(response.body.message);
+                        return [2 /*return*/];
+                }
+            });
+        }); };
         _this.start = function () {
             var promise = services_controllerService__WEBPACK_IMPORTED_MODULE_2__["ControllerService"].start();
             promise.then(function (response) { return alert(response.body.message); });
@@ -3080,146 +3054,22 @@ var SettingPage = /** @class */ (function (_super) {
             var promise = services_controllerService__WEBPACK_IMPORTED_MODULE_2__["ControllerService"].stop();
             promise.then(function (response) { return alert(response.body.message); });
         };
-        _this.getSetting();
-        _this.state = { field: null };
+        _this.state = {
+            field: _this.defaultSetting,
+        };
         return _this;
     }
-    SettingPage.prototype.render = function () {
+    DataSettingPage.prototype.componentDidMount = function () {
+        this.getSetting();
+    };
+    DataSettingPage.prototype.render = function () {
         return react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-            this.generateSheetIdInput(),
-            this.generateSpreadTabInput(),
-            this.generateStartRowInput(),
-            this.generateStaffNameColumnInput(),
-            this.generateVendorColumnInput(),
-            this.generateShippingNameColumnInput(),
-            this.generateshippingLastnameColumnInput(),
-            this.generateAddress1ColumnInput(),
-            this.generateAddress2ColumnInput(),
-            this.generateCityColumnInput(),
-            this.generateStateColumnInput(),
-            this.generateZipColumnInput(),
-            this.generatePhoneColumnInput(),
-            this.generateToBuyColumnInput(),
-            this.generatePayToVendorColumnInput(),
-            this.generateOrderProcessColumnInput(),
-            this.generateVendorIdColumnInput(),
+            this.generateDataSettingInput(),
             this.generateCreateButton(),
             react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("hr", null),
             this.generateControlButton());
     };
-    return SettingPage;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
-
-
-
-/***/ }),
-
-/***/ "./src/main/webapp/components/setting-page/UserSettingPage.tsx":
-/*!*********************************************************************!*\
-  !*** ./src/main/webapp/components/setting-page/UserSettingPage.tsx ***!
-  \*********************************************************************/
-/*! exports provided: UserSettingPage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserSettingPage", function() { return UserSettingPage; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var services_UserSettingService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! services/UserSettingService */ "./src/main/webapp/services/UserSettingService.ts");
-var __extends = (undefined && undefined.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
-
-var UserSettingPage = /** @class */ (function (_super) {
-    __extends(UserSettingPage, _super);
-    function UserSettingPage(props) {
-        var _this = _super.call(this, props) || this;
-        _this.handleChange = function (event) {
-            var _a;
-            var _b = event.target, name = _b.name, value = _b.value;
-            _this.setState({ field: __assign({}, _this.state.field, (_a = {}, _a[name] = value, _a)) });
-        };
-        _this.generateAmazonUserInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Amazon user"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "amazonUser", value: _this.state.field && _this.state.field.amazonUser, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateAmazonPasswordInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Amazon password"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "password", name: "amazonPassword", value: _this.state.field && _this.state.field.amazonPassword, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateBefrugalUserInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Befrugal user"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: "befrugalUser", value: _this.state.field && _this.state.field.befrugalUser, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateBefrugalPasswordInput = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "Befrugal password"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "password", name: "befrugalPassword", value: _this.state.field && _this.state.field.befrugalPassword, onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-5" })));
-        };
-        _this.generateCreateButton = function () {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { type: "button", onClick: _this.createNewSetting }, "Submit")));
-        };
-        _this.getSetting = function () {
-            var promise = services_UserSettingService__WEBPACK_IMPORTED_MODULE_1__["UserSettingService"].get();
-            promise.then(function (response) {
-                if (response.body) {
-                    _this.setState({ field: __assign({}, response.body) });
-                }
-            });
-        };
-        _this.createNewSetting = function () {
-            var promise = services_UserSettingService__WEBPACK_IMPORTED_MODULE_1__["UserSettingService"].create(_this.state.field);
-            promise.then(function (response) { return alert(response.body.message); });
-        };
-        _this.getSetting();
-        _this.state = { field: null };
-        return _this;
-    }
-    UserSettingPage.prototype.render = function () {
-        return this.state.field ? react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-            this.generateAmazonUserInput(),
-            this.generateAmazonPasswordInput(),
-            this.generateBefrugalUserInput(),
-            this.generateBefrugalPasswordInput(),
-            this.generateCreateButton(),
-            react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("hr", null)) : null;
-    };
-    return UserSettingPage;
+    return DataSettingPage;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
 
 
@@ -3304,7 +3154,7 @@ var SettingService;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["get"]('/aup/rest/setting/get');
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["get"]('/aup/rest/datasetting/get');
                         return [4 /*yield*/, agent.type('application/json')];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -3319,7 +3169,7 @@ var SettingService;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/aup/rest/setting/create');
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/aup/rest/datasetting/create');
                         return [4 /*yield*/, agent.type('application/json').send(setting)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -3329,91 +3179,6 @@ var SettingService;
     SettingService.create = create;
     ;
 })(SettingService || (SettingService = {}));
-
-
-/***/ }),
-
-/***/ "./src/main/webapp/services/UserSettingService.ts":
-/*!********************************************************!*\
-  !*** ./src/main/webapp/services/UserSettingService.ts ***!
-  \********************************************************/
-/*! exports provided: UserSettingService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserSettingService", function() { return UserSettingService; });
-/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
-/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-
-var UserSettingService;
-(function (UserSettingService) {
-    function get() {
-        return __awaiter(this, void 0, void 0, function () {
-            var agent;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["get"]('/aup/rest/usersetting/get');
-                        return [4 /*yield*/, agent.type('application/json')];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    }
-    UserSettingService.get = get;
-    ;
-    function create(setting) {
-        return __awaiter(this, void 0, void 0, function () {
-            var agent;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/aup/rest/usersetting/create');
-                        return [4 /*yield*/, agent.type('application/json').send(setting)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    }
-    UserSettingService.create = create;
-    ;
-})(UserSettingService || (UserSettingService = {}));
 
 
 /***/ }),
