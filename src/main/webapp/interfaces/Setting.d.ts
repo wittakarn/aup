@@ -24,6 +24,10 @@ export interface DataSetting {
     addOn3: string,
     type3: string,
     wid3: string,
+    [key: string]: any;
+}
+
+export interface ApiSetting {
     updateStatus: string,
     sku: string,
     asinApi: string,
@@ -33,4 +37,13 @@ export interface DataSetting {
     quantity: string,
     leadTime: string,
     [key: string]: any;
+}
+
+export interface SheetSettingPK {
+    seq: number,
+}
+
+export interface SheetSetting {
+    sheetSettingPK: SheetSettingPK,
+    sheetId: string,
 }

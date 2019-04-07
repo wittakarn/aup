@@ -53,15 +53,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DataSetting.findByShipping3", query = "SELECT d FROM DataSetting d WHERE d.shipping3 = :shipping3"),
     @NamedQuery(name = "DataSetting.findByAddOn3", query = "SELECT d FROM DataSetting d WHERE d.addOn3 = :addOn3"),
     @NamedQuery(name = "DataSetting.findByType3", query = "SELECT d FROM DataSetting d WHERE d.type3 = :type3"),
-    @NamedQuery(name = "DataSetting.findByWid3", query = "SELECT d FROM DataSetting d WHERE d.wid3 = :wid3"),
-    @NamedQuery(name = "DataSetting.findByUpdateStatus", query = "SELECT d FROM DataSetting d WHERE d.updateStatus = :updateStatus"),
-    @NamedQuery(name = "DataSetting.findBySku", query = "SELECT d FROM DataSetting d WHERE d.sku = :sku"),
-    @NamedQuery(name = "DataSetting.findByAsinApi", query = "SELECT d FROM DataSetting d WHERE d.asinApi = :asinApi"),
-    @NamedQuery(name = "DataSetting.findByPriceApi", query = "SELECT d FROM DataSetting d WHERE d.priceApi = :priceApi"),
-    @NamedQuery(name = "DataSetting.findByMinAllowPrice", query = "SELECT d FROM DataSetting d WHERE d.minAllowPrice = :minAllowPrice"),
-    @NamedQuery(name = "DataSetting.findByMaxAllowPrice", query = "SELECT d FROM DataSetting d WHERE d.maxAllowPrice = :maxAllowPrice"),
-    @NamedQuery(name = "DataSetting.findByQuantity", query = "SELECT d FROM DataSetting d WHERE d.quantity = :quantity"),
-    @NamedQuery(name = "DataSetting.findByLeadTime", query = "SELECT d FROM DataSetting d WHERE d.leadTime = :leadTime")})
+    @NamedQuery(name = "DataSetting.findByWid3", query = "SELECT d FROM DataSetting d WHERE d.wid3 = :wid3")})
 public class DataSetting implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -195,46 +187,6 @@ public class DataSetting implements Serializable {
     @Size(min = 1, max = 3)
     @Column(name = "wid_3")
     private String wid3;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "update_status")
-    private String updateStatus;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "sku")
-    private String sku;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "asin_api")
-    private String asinApi;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "price_api")
-    private String priceApi;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "min_allow_price")
-    private String minAllowPrice;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "max_allow_price")
-    private String maxAllowPrice;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "quantity")
-    private String quantity;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "lead_time")
-    private String leadTime;
 
     public DataSetting() {
     }
@@ -243,7 +195,7 @@ public class DataSetting implements Serializable {
         this.version = version;
     }
 
-    public DataSetting(Integer version, String link, String asin, String oldData, String newData, String asinCrawling, String reviewScore, String review, String sellerName1, String price1, String shipping1, String addOn1, String type1, String wid1, String sellerName2, String price2, String shipping2, String addOn2, String type2, String wid2, String sellerName3, String price3, String shipping3, String addOn3, String type3, String wid3, String updateStatus, String sku, String asinApi, String priceApi, String minAllowPrice, String maxAllowPrice, String quantity, String leadTime) {
+    public DataSetting(Integer version, String link, String asin, String oldData, String newData, String asinCrawling, String reviewScore, String review, String sellerName1, String price1, String shipping1, String addOn1, String type1, String wid1, String sellerName2, String price2, String shipping2, String addOn2, String type2, String wid2, String sellerName3, String price3, String shipping3, String addOn3, String type3, String wid3) {
         this.version = version;
         this.link = link;
         this.asin = asin;
@@ -270,14 +222,6 @@ public class DataSetting implements Serializable {
         this.addOn3 = addOn3;
         this.type3 = type3;
         this.wid3 = wid3;
-        this.updateStatus = updateStatus;
-        this.sku = sku;
-        this.asinApi = asinApi;
-        this.priceApi = priceApi;
-        this.minAllowPrice = minAllowPrice;
-        this.maxAllowPrice = maxAllowPrice;
-        this.quantity = quantity;
-        this.leadTime = leadTime;
     }
 
     public Integer getVersion() {
@@ -486,70 +430,6 @@ public class DataSetting implements Serializable {
 
     public void setWid3(String wid3) {
         this.wid3 = wid3;
-    }
-
-    public String getUpdateStatus() {
-        return updateStatus;
-    }
-
-    public void setUpdateStatus(String updateStatus) {
-        this.updateStatus = updateStatus;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
-    public String getAsinApi() {
-        return asinApi;
-    }
-
-    public void setAsinApi(String asinApi) {
-        this.asinApi = asinApi;
-    }
-
-    public String getPriceApi() {
-        return priceApi;
-    }
-
-    public void setPriceApi(String priceApi) {
-        this.priceApi = priceApi;
-    }
-
-    public String getMinAllowPrice() {
-        return minAllowPrice;
-    }
-
-    public void setMinAllowPrice(String minAllowPrice) {
-        this.minAllowPrice = minAllowPrice;
-    }
-
-    public String getMaxAllowPrice() {
-        return maxAllowPrice;
-    }
-
-    public void setMaxAllowPrice(String maxAllowPrice) {
-        this.maxAllowPrice = maxAllowPrice;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getLeadTime() {
-        return leadTime;
-    }
-
-    public void setLeadTime(String leadTime) {
-        this.leadTime = leadTime;
     }
 
     @Override

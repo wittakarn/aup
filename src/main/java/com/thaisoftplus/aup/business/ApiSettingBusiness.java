@@ -5,18 +5,18 @@
  */
 package com.thaisoftplus.aup.business;
 
-import com.thaisoftplus.aup.jpa.entity.DataSetting;
+import com.thaisoftplus.aup.jpa.entity.ApiSetting;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author witta
  */
-public class DataSettingBusiness {
+public class ApiSettingBusiness {
 
-    private DataSetting setting;
+    private ApiSetting setting;
 
-    public DataSettingBusiness(DataSetting setting) {
+    public ApiSettingBusiness(ApiSetting setting) {
         this.setting = setting;
     }
 

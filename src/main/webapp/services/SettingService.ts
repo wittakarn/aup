@@ -1,14 +1,13 @@
 import * as superagent from 'superagent';
-import { DataSetting } from 'interfaces/DataSettingPage';
 
 export namespace SettingService {
-    export async function get() {
-        const agent = superagent['get']('/aup/rest/datasetting/get');
+    export async function get(endpoint: string) {
+        const agent = superagent['get'](`/aup/rest/${endpoint}`);
         return await agent.type('application/json')
     };
 
-    export async function create(setting: DataSetting): Promise<superagent.Response> {
-        const agent = superagent['post']('/aup/rest/datasetting/create');
+    export async function create(setting: any, endpoint: string): Promise<superagent.Response> {
+        const agent = superagent['post'](`/aup/rest/${endpoint}`);
         return await agent.type('application/json').send(setting);
     };
 }

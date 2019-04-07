@@ -1,42 +1,26 @@
 import * as React from 'react';
-import { DataSetting } from 'interfaces/Setting';
 import { SettingService } from 'services/SettingService';
+import { ApiSetting } from 'interfaces/Setting';
 
 interface Props {
 }
 
 interface State {
-    field: DataSetting;
+    field: ApiSetting;
 }
 
-export class DataSettingPage extends React.Component<Props, State> {
+export class ApiSettingPage extends React.Component<Props, State> {
 
     private defaultSetting = {
-        link: '',
-        asin: '',
-        oldData: '',
-        newData: '',
-        asinCrawling: '',
-        reviewScore: '',
-        review: '',
-        sellerName1: '',
-        price1: '',
-        shipping1: '',
-        addOn1: '',
-        type1: '',
-        wid1: '',
-        sellerName2: '',
-        price2: '',
-        shipping2: '',
-        addOn2: '',
-        type2: '',
-        wid2: '',
-        sellerName3: '',
-        price3: '',
-        shipping3: '',
-        addOn3: '',
-        type3: '',
-        wid3: '',
+        updateStatus: '',
+        sku: '',
+        asinApi: '',
+        priceApi: '',
+        minAllowPrice: '',
+        maxAllowPrice: '',
+        quantity: '',
+        leadTime: '',
+        timestamp: '',
     };
 
     constructor(props: Props) {
@@ -84,12 +68,12 @@ export class DataSettingPage extends React.Component<Props, State> {
     }
 
     private getSetting = async () => {
-        const response = await SettingService.get('datasetting/get');
+        const response = await SettingService.get('apisetting/get');
         this.setState({ field: { ...response.body } });
     }
 
     private createNewSetting = async () => {
-        const response = await SettingService.create(this.state.field, 'datasetting/create');
+        const response = await SettingService.create(this.state.field, 'apisetting/create');
         alert(response.body.message);
     }
 

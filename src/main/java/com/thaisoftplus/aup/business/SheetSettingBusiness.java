@@ -5,23 +5,29 @@
  */
 package com.thaisoftplus.aup.business;
 
-import com.thaisoftplus.aup.jpa.entity.DataSetting;
+import com.thaisoftplus.aup.jpa.entity.SheetSetting;
+import com.thaisoftplus.aup.query.SheetSettingQuery;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author witta
  */
-public class DataSettingBusiness {
+public class SheetSettingBusiness {
 
-    private DataSetting setting;
+    private List<SheetSetting> settings;
 
-    public DataSettingBusiness(DataSetting setting) {
-        this.setting = setting;
+    public SheetSettingBusiness(List<SheetSetting> settings) {
+        this.settings = settings;
     }
 
     public void createSetting(EntityManager em) {
-        em.persist(this.setting);
+        int nextVersion = SheetSettingQuery.getLastedVersion(em) + 1;
+        for (SheetSetting setting : settings) {
+            setting.getSheetSettingPK().setVersion(nextVersion);
+            em.persist(setting);
+        }
         updateContext();
     }
 

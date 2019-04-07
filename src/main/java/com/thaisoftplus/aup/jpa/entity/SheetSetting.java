@@ -14,6 +14,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -35,8 +36,9 @@ public class SheetSetting implements Serializable {
     protected SheetSettingPK sheetSettingPK;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "sheet_id")
-    private int sheetId;
+    private String sheetId;
 
     public SheetSetting() {
     }
@@ -45,7 +47,7 @@ public class SheetSetting implements Serializable {
         this.sheetSettingPK = sheetSettingPK;
     }
 
-    public SheetSetting(SheetSettingPK sheetSettingPK, int sheetId) {
+    public SheetSetting(SheetSettingPK sheetSettingPK, String sheetId) {
         this.sheetSettingPK = sheetSettingPK;
         this.sheetId = sheetId;
     }
@@ -62,11 +64,11 @@ public class SheetSetting implements Serializable {
         this.sheetSettingPK = sheetSettingPK;
     }
 
-    public int getSheetId() {
+    public String getSheetId() {
         return sheetId;
     }
 
-    public void setSheetId(int sheetId) {
+    public void setSheetId(String sheetId) {
         this.sheetId = sheetId;
     }
 
