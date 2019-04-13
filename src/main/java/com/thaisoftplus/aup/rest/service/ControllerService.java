@@ -7,6 +7,7 @@ package com.thaisoftplus.aup.rest.service;
 
 import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.domain.ResponseMessage;
+import com.thaisoftplus.aup.domain.StartRequest;
 import com.thaisoftplus.aup.thread.ServiceWorker;
 import java.util.concurrent.Executors;
 import javax.ejb.Stateless;
@@ -34,23 +35,19 @@ public class ControllerService {
     }
 
     @POST
-    @Path("/processrequest")
+    @Path("/start")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseMessage processRequest(String command) {
+    public ResponseMessage start(StartRequest startRequest) {
         ResponseMessage resp = new ResponseMessage();
         try {
-            if ("start".equals(command)) {
-                if (!ApplicationContext.isRunning) {
-                    ApplicationContext.isRunning = true;
-                    Executors.newFixedThreadPool(1).execute(new ServiceWorker());
-                    resp.setMessage(String.format("โปรแกรมเริ่มทำงาน"));
-                } else {
-                    resp.setMessage(String.format("โปรแกรมทำงานอยู่"));
-                }
+            if (!ApplicationContext.isRunning) {
+                ApplicationContext.START_ROW_INDEX = startRequest.getIndex();
+                ApplicationContext.isRunning = true;
+                Executors.newFixedThreadPool(1).execute(new ServiceWorker());
+                resp.setMessage(String.format("โปรแกรมเริ่มทำงาน"));
             } else {
-                ApplicationContext.isRunning = false;
-                resp.setMessage(String.format("โปรแกรมหยุดทำงาน โปรดรอ 3 นาทีก่อนที่จะกดสั่งทำงานอีกครั้ง"));
+                resp.setMessage(String.format("โปรแกรมทำงานอยู่"));
             }
         } catch (Exception e) {
             logger.error("", e);

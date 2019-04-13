@@ -50,7 +50,7 @@ public class SheetSettingSessionBean implements SheetSettingSessionBeanLocal, Se
         logger.trace("Begin init...");
         try {
             SheetSettingBusiness business = new SheetSettingBusiness(SheetSettingQuery.getLastedSetting(em));
-            business.updateContext();
+            business.updateContext(em);
         } finally {
             logger.trace("End init...");
         }

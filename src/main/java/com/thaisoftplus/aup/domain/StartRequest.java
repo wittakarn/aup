@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thaisoftplus.aup.page.amazon;
+package com.thaisoftplus.aup.domain;
 
 import java.io.Serializable;
 
@@ -11,6 +11,16 @@ import java.io.Serializable;
  *
  * @author witta
  */
-public class Coupon implements Serializable{
-    public static final String BEFRUGAL_URL = "https://www.befrugal.com/coupons/search/amazon/";
+public class StartRequest implements Serializable {
+
+    private int index;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
 }

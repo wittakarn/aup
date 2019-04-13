@@ -1,4 +1,10 @@
-export interface DataSetting {
+interface DefaultSetting {
+    sheetName: string,
+    startRow: number;
+    [key: string]: any;
+}
+
+export interface DataSetting extends DefaultSetting {
     link: string,
     asin: string,
     oldData: string,
@@ -24,10 +30,9 @@ export interface DataSetting {
     addOn3: string,
     type3: string,
     wid3: string,
-    [key: string]: any;
 }
 
-export interface ApiSetting {
+export interface ApiSetting extends DefaultSetting {
     updateStatus: string,
     sku: string,
     asinApi: string,
@@ -36,7 +41,6 @@ export interface ApiSetting {
     maxAllowPrice: string,
     quantity: string,
     leadTime: string,
-    [key: string]: any;
 }
 
 export interface SheetSettingPK {

@@ -12,6 +12,8 @@ interface State {
 export class DataSettingPage extends React.Component<Props, State> {
 
     private defaultSetting = {
+        sheetName: '',
+        startRow: 3,
         link: '',
         asin: '',
         oldData: '',

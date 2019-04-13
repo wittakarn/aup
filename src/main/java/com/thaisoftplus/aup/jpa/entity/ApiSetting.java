@@ -29,6 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ApiSetting.findAll", query = "SELECT a FROM ApiSetting a"),
     @NamedQuery(name = "ApiSetting.findByVersion", query = "SELECT a FROM ApiSetting a WHERE a.version = :version"),
+    @NamedQuery(name = "ApiSetting.findBySheetName", query = "SELECT a FROM ApiSetting a WHERE a.sheetName = :sheetName"),
+    @NamedQuery(name = "ApiSetting.findByStartRow", query = "SELECT a FROM ApiSetting a WHERE a.startRow = :startRow"),
     @NamedQuery(name = "ApiSetting.findByUpdateStatus", query = "SELECT a FROM ApiSetting a WHERE a.updateStatus = :updateStatus"),
     @NamedQuery(name = "ApiSetting.findBySku", query = "SELECT a FROM ApiSetting a WHERE a.sku = :sku"),
     @NamedQuery(name = "ApiSetting.findByAsinApi", query = "SELECT a FROM ApiSetting a WHERE a.asinApi = :asinApi"),
@@ -46,6 +48,15 @@ public class ApiSetting implements Serializable {
     @Basic(optional = false)
     @Column(name = "version")
     private Integer version;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "sheet_name")
+    private String sheetName;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "start_row")
+    private int startRow;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
@@ -97,8 +108,10 @@ public class ApiSetting implements Serializable {
         this.version = version;
     }
 
-    public ApiSetting(Integer version, String updateStatus, String sku, String asinApi, String priceApi, String minAllowPrice, String maxAllowPrice, String quantity, String leadTime) {
+    public ApiSetting(Integer version, String sheetName, int startRow, String updateStatus, String sku, String asinApi, String priceApi, String minAllowPrice, String maxAllowPrice, String quantity, String leadTime) {
         this.version = version;
+        this.sheetName = sheetName;
+        this.startRow = startRow;
         this.updateStatus = updateStatus;
         this.sku = sku;
         this.asinApi = asinApi;
@@ -115,6 +128,22 @@ public class ApiSetting implements Serializable {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public String getSheetName() {
+        return sheetName;
+    }
+
+    public void setSheetName(String sheetName) {
+        this.sheetName = sheetName;
+    }
+
+    public int getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
     }
 
     public String getUpdateStatus() {

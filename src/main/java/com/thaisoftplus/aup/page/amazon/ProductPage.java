@@ -5,9 +5,13 @@
  */
 package com.thaisoftplus.aup.page.amazon;
 
+import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import com.thaisoftplus.aup.page.BasePage;
+import com.thaisoftplus.aup.page.PageUrl;
+import com.thaisoftplus.aup.util.PageHelper;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,12 @@ public class ProductPage extends BasePage implements Serializable {
     public ProductPage(WebDriver driver) {
         super(driver);
         this.sheetManagement = SheetManagement.getInstance();
+    }
+
+    public void openProductPage() throws IOException {
+        String url = this.sheetManagement.getDataInColumn(ApplicationContext.LINK, ApplicationContext.DATA_SHEET_NAME);
+        driver.get(url);
+        PageHelper.waitUtilPageLoad(driver);
     }
 
     public List<ProductData> getProductsData() {

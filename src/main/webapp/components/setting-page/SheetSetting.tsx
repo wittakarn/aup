@@ -2,6 +2,8 @@ import * as React from 'react';
 import { SettingService } from 'services/SettingService';
 import { SheetSetting } from 'interfaces/Setting';
 import { NumberUtil } from 'utils/NumberUtil';
+import { ControllerService } from 'services/ControllerService';
+import { SuperAgent } from 'superagent';
 
 interface Props {
 }
@@ -89,7 +91,10 @@ export class SheetSettingPage extends React.Component<Props, State> {
                         onChange={e => this.handleTextChange(e, sheet.sheetSettingPK.seq)}
                     />
                 </span>
-                <span className="col-7"></span>
+                <span className="col-1">
+                    <button type="button" onClick={() => this.start(sheet.sheetSettingPK.seq - 1)}>ปรับราคา</button>
+                </span>
+                <span className="col-6"></span>
             </div>
         );
     }
@@ -113,6 +118,11 @@ export class SheetSettingPage extends React.Component<Props, State> {
 
     private createNewSetting = async () => {
         const response = await SettingService.create(this.state.field, 'sheetsetting/create');
+        alert(response.body.message);
+    }
+
+    private start = async (index: number) => {
+        const response = await ControllerService.start(index);
         alert(response.body.message);
     }
 

@@ -29,6 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "DataSetting.findAll", query = "SELECT d FROM DataSetting d"),
     @NamedQuery(name = "DataSetting.findByVersion", query = "SELECT d FROM DataSetting d WHERE d.version = :version"),
+    @NamedQuery(name = "DataSetting.findBySheetName", query = "SELECT d FROM DataSetting d WHERE d.sheetName = :sheetName"),
+    @NamedQuery(name = "DataSetting.findByStartRow", query = "SELECT d FROM DataSetting d WHERE d.startRow = :startRow"),
     @NamedQuery(name = "DataSetting.findByLink", query = "SELECT d FROM DataSetting d WHERE d.link = :link"),
     @NamedQuery(name = "DataSetting.findByAsin", query = "SELECT d FROM DataSetting d WHERE d.asin = :asin"),
     @NamedQuery(name = "DataSetting.findByOldData", query = "SELECT d FROM DataSetting d WHERE d.oldData = :oldData"),
@@ -62,6 +64,15 @@ public class DataSetting implements Serializable {
     @Basic(optional = false)
     @Column(name = "version")
     private Integer version;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "sheet_name")
+    private String sheetName;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "start_row")
+    private int startRow;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 3)
@@ -195,8 +206,10 @@ public class DataSetting implements Serializable {
         this.version = version;
     }
 
-    public DataSetting(Integer version, String link, String asin, String oldData, String newData, String asinCrawling, String reviewScore, String review, String sellerName1, String price1, String shipping1, String addOn1, String type1, String wid1, String sellerName2, String price2, String shipping2, String addOn2, String type2, String wid2, String sellerName3, String price3, String shipping3, String addOn3, String type3, String wid3) {
+    public DataSetting(Integer version, String sheetName, int startRow, String link, String asin, String oldData, String newData, String asinCrawling, String reviewScore, String review, String sellerName1, String price1, String shipping1, String addOn1, String type1, String wid1, String sellerName2, String price2, String shipping2, String addOn2, String type2, String wid2, String sellerName3, String price3, String shipping3, String addOn3, String type3, String wid3) {
         this.version = version;
+        this.sheetName = sheetName;
+        this.startRow = startRow;
         this.link = link;
         this.asin = asin;
         this.oldData = oldData;
@@ -230,6 +243,22 @@ public class DataSetting implements Serializable {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public String getSheetName() {
+        return sheetName;
+    }
+
+    public void setSheetName(String sheetName) {
+        this.sheetName = sheetName;
+    }
+
+    public int getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
     }
 
     public String getLink() {

@@ -5,6 +5,7 @@
  */
 package com.thaisoftplus.aup.business;
 
+import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.jpa.entity.SheetSetting;
 import com.thaisoftplus.aup.query.SheetSettingQuery;
 import java.util.List;
@@ -28,13 +29,10 @@ public class SheetSettingBusiness {
             setting.getSheetSettingPK().setVersion(nextVersion);
             em.persist(setting);
         }
-        updateContext();
+        updateContext(em);
     }
 
-    public void updateContext() {
-//        ApplicationContext.AMAZON_USER = setting.getAmazonUser();
-//        ApplicationContext.AMAZON_PASSWORD = setting.getAmazonPassword();
-//        ApplicationContext.BEFRUGAL_USER = setting.getBefrugalUser();
-//        ApplicationContext.BEFRUGAL_PASSWORD = setting.getBefrugalPassword();
+    public void updateContext(EntityManager em) {
+        ApplicationContext.sheetSetting = SheetSettingQuery.getLastedSetting(em);
     }
 }

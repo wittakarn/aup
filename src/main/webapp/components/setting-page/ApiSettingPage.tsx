@@ -12,6 +12,8 @@ interface State {
 export class ApiSettingPage extends React.Component<Props, State> {
 
     private defaultSetting = {
+        sheetName: '',
+        startRow: 3,
         updateStatus: '',
         sku: '',
         asinApi: '',
