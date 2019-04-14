@@ -39,7 +39,7 @@ public class Sheet implements Serializable {
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Sheet.class);
     private static Sheets googleSheets;
 
-    protected static Sheets getSheets() {
+    public Sheets getSheets() {
         if (googleSheets == null) {
             try {
                 final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -60,7 +60,7 @@ public class Sheet implements Serializable {
      * @return An authorized Credential object.
      * @throws IOException If the credentials.json file cannot be found.
      */
-    protected static Credential getCredentials(final NetHttpTransport httpTransport) throws IOException {
+    protected Credential getCredentials(final NetHttpTransport httpTransport) throws IOException {
         // Load client secrets.
         InputStream in = new FileInputStream(ApplicationContext.CREDENTIALS_FILE_PATH);
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));

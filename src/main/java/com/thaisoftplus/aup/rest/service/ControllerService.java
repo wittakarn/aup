@@ -42,7 +42,7 @@ public class ControllerService {
         ResponseMessage resp = new ResponseMessage();
         try {
             if (!ApplicationContext.isRunning) {
-                ApplicationContext.START_ROW_INDEX = startRequest.getIndex();
+                ApplicationContext.SHEET_INDEX = startRequest.getIndex();
                 ApplicationContext.isRunning = true;
                 Executors.newFixedThreadPool(1).execute(new ServiceWorker());
                 resp.setMessage(String.format("โปรแกรมเริ่มทำงาน"));

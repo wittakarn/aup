@@ -5,10 +5,14 @@
  */
 package com.thaisoftplus.aup.googlel.sheet;
 
+import com.google.api.services.sheets.v4.model.BatchUpdateValuesRequest;
+import com.google.api.services.sheets.v4.model.BatchUpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.thaisoftplus.aup.context.ApplicationContext;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,6 +63,25 @@ public class SheetManagement extends Sheet implements Serializable {
                 ROW_INDEX);
         String value = read(range);
         return value == null ? "" : value;
+    }
+    
+    public BatchUpdateValuesResponse setDataInColumn(String column, String tabName, String[] value) throws IOException {
+        String range = String.format("'%s'!%s%d:%s%d",
+                tabName,
+                column,
+                ROW_INDEX,
+                column,
+                ROW_INDEX);
+        List<List<Object>> values = Arrays.asList(Arrays.asList(value));
+        List<ValueRange> data = new ArrayList<ValueRange>();
+        data.add(new ValueRange()
+                .setRange(range)
+                .setMajorDimension("COLUMNS")
+                .setValues(values));
+        BatchUpdateValuesRequest body = new BatchUpdateValuesRequest()
+                .setValueInputOption("RAW")
+                .setData(data);
+        return getSheets().spreadsheets().values().batchUpdate(ApplicationContext.getSheetId(), body).execute();
     }
 
     public void updateNextIndex() throws IOException {

@@ -5,10 +5,13 @@
  */
 package com.thaisoftplus.aup.thread;
 
+import com.thaisoftplus.aup.business.GoogleSheetBusiness;
 import com.thaisoftplus.aup.context.ApplicationContext;
+import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.exception.NotRunninglException;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import com.thaisoftplus.aup.page.amazon.ProductPage;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -26,8 +29,6 @@ import org.slf4j.LoggerFactory;
 public class ServiceWorker implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceWorker.class);
-
-    private final SheetManagement sheetManagement;
     private final ChromeOptions options;
     private WebDriver driver;
 
@@ -38,7 +39,6 @@ public class ServiceWorker implements Runnable {
         options.addArguments("start-maximized");
         options.setHeadless(false);
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        sheetManagement = SheetManagement.getInstance();
     }
 
     @Override
@@ -60,7 +60,10 @@ public class ServiceWorker implements Runnable {
 
         ProductPage productPage = new ProductPage(driver);
         productPage.openProductPage();
-        productPage.getProductsData();
+        List<ProductData> productDatas = productPage.getProductsData();
+        GoogleSheetBusiness business = new GoogleSheetBusiness();
+        business.updateOldPriceColumn();
+        business.updateAllProductDetailColumn(productDatas);
     }
 
     private void scheduleNextRun(int waitTime) {
