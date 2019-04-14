@@ -68,7 +68,7 @@ public class ProductPage extends BasePage implements Serializable {
                 primeElement = getFirstElement(productOptionElement, By.xpath(PRIME_XPATH));
                 deliveryElement = getFirstElement(productOptionElement, By.xpath(DELIVERY_XPATH));
 
-                pd.setPrice(getDefaultText(priceElement));
+                pd.setPrice(getDefaultText(priceElement).replace("$", ""));
 
                 String sellerName = getDefaultText(sellerNameElement);
                 if (sellerName.equals("")) {
@@ -80,7 +80,7 @@ public class ProductPage extends BasePage implements Serializable {
                     pd.setSellerName(sellerName);
                 }
 
-                pd.setShipping(getDefaultText(shippingPriceElement));
+                pd.setShipping(getDefaultText(shippingPriceElement).replace("$", ""));
 
                 if (addOnElement != null) {
                     pd.setAddOn("Add-on");

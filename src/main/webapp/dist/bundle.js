@@ -3129,8 +3129,6 @@ var DataSettingPage = /** @class */ (function (_super) {
             oldData: '',
             newData: '',
             asinCrawling: '',
-            reviewScore: '',
-            review: '',
             sellerName1: '',
             price1: '',
             shipping1: '',

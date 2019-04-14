@@ -34,8 +34,6 @@ public class DataSettingBusiness {
         ApplicationContext.OLD_DATA = setting.getOldData();
         ApplicationContext.NEW_DATA = setting.getNewData();
         ApplicationContext.ASIN_CRAWLING = setting.getAsinCrawling();
-        ApplicationContext.REVIEW_SCORE = setting.getReviewScore();
-        ApplicationContext.REVIEW = setting.getReview();
         ApplicationContext.SELLER_NAME_1 = setting.getSellerName1();
         ApplicationContext.PRICE_1 = setting.getPrice1();
         ApplicationContext.SHIPING_1 = setting.getShipping1();

@@ -19,8 +19,6 @@ export class DataSettingPage extends React.Component<Props, State> {
         oldData: '',
         newData: '',
         asinCrawling: '',
-        reviewScore: '',
-        review: '',
         sellerName1: '',
         price1: '',
         shipping1: '',

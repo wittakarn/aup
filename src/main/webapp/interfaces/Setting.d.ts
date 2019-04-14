@@ -10,8 +10,6 @@ export interface DataSetting extends DefaultSetting {
     oldData: string,
     newData: string,
     asinCrawling: string,
-    reviewScore: string,
-    review: string,
     sellerName1: string,
     price1: string,
     shipping1: string,
