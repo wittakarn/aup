@@ -6,4 +6,9 @@ export namespace ControllerService {
             index,
         });
     };
+
+    export async function stop(): Promise<superagent.Response> {
+        const agent = superagent['post']('/aup/rest/controller/stop');
+        return await agent.type('application/json').send();
+    };
 }

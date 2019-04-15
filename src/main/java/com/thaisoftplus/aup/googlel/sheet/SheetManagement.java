@@ -64,7 +64,7 @@ public class SheetManagement extends Sheet implements Serializable {
         String value = read(range);
         return value == null ? "" : value;
     }
-    
+
     public BatchUpdateValuesResponse setDataInColumn(String column, String tabName, String[] value) throws IOException {
         String range = String.format("'%s'!%s%d:%s%d",
                 tabName,
@@ -84,7 +84,7 @@ public class SheetManagement extends Sheet implements Serializable {
         return getSheets().spreadsheets().values().batchUpdate(ApplicationContext.getSheetId(), body).execute();
     }
 
-    public void updateNextIndex() throws IOException {
+    public void updateNextIndex() {
         ROW_INDEX += 1;
     }
 }

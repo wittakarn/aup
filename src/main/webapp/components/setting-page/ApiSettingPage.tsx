@@ -48,15 +48,15 @@ export class ApiSettingPage extends React.Component<Props, State> {
     private generateInputText: any = (key: string) => {
         return (
             <div className="row">
-                <span className="col-2">{key}</span>
-                <span className="col-3">
+                <span className="col col-2">{key}</span>
+                <span className="col col-3">
                     <input type="text"
                         name={key}
                         value={this.state.field && this.state.field[key]}
                         onChange={this.handleChange}
                     />
                 </span>
-                <span className="col-7"></span>
+                <span className="col col-7"></span>
             </div>
         );
     }

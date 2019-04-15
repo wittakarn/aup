@@ -42,8 +42,8 @@ public class ControllerService {
         ResponseMessage resp = new ResponseMessage();
         try {
             if (!ApplicationContext.isRunning) {
-                ApplicationContext.SHEET_INDEX = startRequest.getIndex();
                 ApplicationContext.isRunning = true;
+                ApplicationContext.SHEET_INDEX = startRequest.getIndex();
                 Executors.newFixedThreadPool(1).execute(new ServiceWorker());
                 resp.setMessage(String.format("โปรแกรมเริ่มทำงาน"));
             } else {
@@ -53,6 +53,16 @@ public class ControllerService {
             logger.error("", e);
             resp.setMessage(ExceptionUtils.getStackTrace(e));
         }
+        return resp;
+    }
+
+    @POST
+    @Path("/stop")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseMessage stop() {
+        ResponseMessage resp = new ResponseMessage();
+        ApplicationContext.isRunning = false;
+        resp.setMessage(String.format("โปรแกรมถูกสั่งให้หยุดทำงานแล้ว โปรดรอ 3 นาที ก่อนสั่งให้โปรแกรมทำงานใหม่"));
         return resp;
     }
 }

@@ -68,14 +68,14 @@ export class SheetSettingPage extends React.Component<Props, State> {
     private generateSheetCountInputText = () => {
         return (
             <div className="row">
-                <span className="col-2">จำนวนชีท</span>
-                <span className="col-2">
+                <span className="col col-2">จำนวนชีท</span>
+                <span className="col col-2">
                     <input type="text" ref={this.sheetCountRef} onChange={this.handleSheetCountChange} value={this.state.sheetCount} />
                 </span>
-                <span className="col-1">
+                <span className="col col-1">
                     <button type="button" onClick={this.updateSheetCount}>ยืนยัน</button>
                 </span>
-                <span className="col-7"></span>
+                <span className="col col-7"></span>
             </div>
         );
     }
@@ -83,23 +83,24 @@ export class SheetSettingPage extends React.Component<Props, State> {
     private generateInputText = (sheet: SheetSetting) => {
         return (
             <div className="row">
-                <span className="col-2">Sheet number {sheet.sheetSettingPK.seq}</span>
-                <span className="col-3">
+                <span className="col col-2">Sheet number {sheet.sheetSettingPK.seq}</span>
+                <span className="col col-3">
                     <input type="text"
                         data-index={sheet.sheetSettingPK.seq}
                         value={sheet.sheetId}
                         onChange={e => this.handleTextChange(e, sheet.sheetSettingPK.seq)}
                     />
                 </span>
-                <span className="col-1">
+                <span className="col col-2">
                     <button type="button" onClick={() => this.start(sheet.sheetSettingPK.seq - 1)}>ปรับราคา</button>
+                    <button type="button" onClick={this.stop}>หยุดทำงาน</button>
                 </span>
-                <span className="col-6"></span>
+                <span className="col col-5"></span>
             </div>
         );
     }
 
-    private generateCreateButton = () => {
+    private generateControlButton = () => {
         return (
             <div className="row">
                 <button type="button" onClick={this.createNewSetting}>Submit</button>
@@ -126,11 +127,16 @@ export class SheetSettingPage extends React.Component<Props, State> {
         alert(response.body.message);
     }
 
+    private stop = async () => {
+        const response = await ControllerService.stop();
+        alert(response.body.message);
+    }
+
     render() {
         return <React.Fragment>
             {this.generateSheetCountInputText()}
             {this.generateSheetSettingInput()}
-            {this.generateCreateButton()}
+            {this.generateControlButton()}
         </React.Fragment>
     }
 }

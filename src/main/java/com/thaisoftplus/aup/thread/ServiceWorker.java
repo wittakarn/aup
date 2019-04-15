@@ -29,10 +29,12 @@ import org.slf4j.LoggerFactory;
 public class ServiceWorker implements Runnable {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceWorker.class);
+    private final SheetManagement sheetManagement;
     private final ChromeOptions options;
     private WebDriver driver;
 
     public ServiceWorker() {
+        this.sheetManagement = SheetManagement.getInstance();
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         options = new ChromeOptions();
         options.addArguments("user-data-dir=" + ApplicationContext.getUserDataPath());
@@ -45,6 +47,7 @@ public class ServiceWorker implements Runnable {
     public void run() {
         try {
             updateAmasonProductData();
+            setNextRun(1);
         } catch (NotRunninglException ex) {
             logger.info(ex.getMessage());
         } catch (Exception ex) {
@@ -61,14 +64,27 @@ public class ServiceWorker implements Runnable {
         ProductPage productPage = new ProductPage(driver);
         productPage.openProductPage();
         List<ProductData> productDatas = productPage.getProductsData();
-        GoogleSheetBusiness business = new GoogleSheetBusiness();
-        business.updateOldPriceColumn();
-        business.updateAllProductDetailColumn(productDatas);
+
+        if (productDatas != null) {
+            GoogleSheetBusiness business = new GoogleSheetBusiness();
+            business.updateOldPriceColumn();
+            business.updateAllProductDetailColumn(productDatas);
+        }
+
+        closeSeleniumBrowser();
     }
 
-    private void scheduleNextRun(int waitTime) {
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.schedule(new ServiceWorker(), waitTime, TimeUnit.SECONDS);
-        scheduler.shutdown();
+    private void closeSeleniumBrowser() {
+        driver.quit();
+        driver = null;
+    }
+
+    private void setNextRun(int waitTime) {
+        if (ApplicationContext.isRunning) {
+            this.sheetManagement.updateNextIndex();
+            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.schedule(new ServiceWorker(), waitTime, TimeUnit.SECONDS);
+            scheduler.shutdown();
+        }
     }
 }

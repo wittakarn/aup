@@ -269,7 +269,7 @@ Emitter.prototype.hasListeners = function(event){
 
 exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".container {\n  width: 80%; }\n  .container--center {\n    margin: 0 auto; }\n\n.row {\n  display: flex;\n  line-height: 25px; }\n  .row .col-1 {\n    flex: 1; }\n  .row .col-2 {\n    flex: 2; }\n  .row .col-3 {\n    flex: 3; }\n  .row .col-4 {\n    flex: 4; }\n  .row .col-5 {\n    flex: 5; }\n  .row .col-6 {\n    flex: 6; }\n  .row .col-7 {\n    flex: 7; }\n  .row .col-8 {\n    flex: 8; }\n  .row .col-9 {\n    flex: 9; }\n  .row .col-10 {\n    flex: 10; }\n  .row .col-11 {\n    flex: 11; }\n  .row .col-12 {\n    flex: 12; }\n\ninput {\n  width: 100%; }\n", ""]);
+exports.push([module.i, ".container {\n  width: 80%; }\n  .container--center {\n    margin: 0 auto; }\n\n.row {\n  display: flex;\n  line-height: 25px; }\n  .row .col {\n    margin: 0 5px; }\n    .row .col-1 {\n      flex: 1; }\n    .row .col-2 {\n      flex: 2; }\n    .row .col-3 {\n      flex: 3; }\n    .row .col-4 {\n      flex: 4; }\n    .row .col-5 {\n      flex: 5; }\n    .row .col-6 {\n      flex: 6; }\n    .row .col-7 {\n      flex: 7; }\n    .row .col-8 {\n      flex: 8; }\n    .row .col-9 {\n      flex: 9; }\n    .row .col-10 {\n      flex: 10; }\n    .row .col-11 {\n      flex: 11; }\n    .row .col-12 {\n      flex: 12; }\n\ninput {\n  width: 100%; }\n", ""]);
 
 
 
@@ -2990,10 +2990,10 @@ var ApiSettingPage = /** @class */ (function (_super) {
         };
         _this.generateInputText = function (key) {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, key),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-3" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-2" }, key),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-3" },
                     react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: key, value: _this.state.field && _this.state.field[key], onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-7" })));
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-7" })));
         };
         _this.generateCreateButton = function () {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
@@ -3158,10 +3158,10 @@ var DataSettingPage = /** @class */ (function (_super) {
         };
         _this.generateInputText = function (key) {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, key),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-3" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-2" }, key),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-3" },
                     react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", name: key, value: _this.state.field && _this.state.field[key], onChange: _this.handleChange })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-7" })));
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-7" })));
         };
         _this.generateCreateButton = function () {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
@@ -3313,25 +3313,26 @@ var SheetSettingPage = /** @class */ (function (_super) {
         };
         _this.generateSheetCountInputText = function () {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" }, "\u0E08\u0E33\u0E19\u0E27\u0E19\u0E0A\u0E35\u0E17"),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-2" }, "\u0E08\u0E33\u0E19\u0E27\u0E19\u0E0A\u0E35\u0E17"),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-2" },
                     react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", ref: _this.sheetCountRef, onChange: _this.handleSheetCountChange, value: _this.state.sheetCount })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-1" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-1" },
                     react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { type: "button", onClick: _this.updateSheetCount }, "\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19")),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-7" })));
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-7" })));
         };
         _this.generateInputText = function (sheet) {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-2" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-2" },
                     "Sheet number ",
                     sheet.sheetSettingPK.seq),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-3" },
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-3" },
                     react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("input", { type: "text", "data-index": sheet.sheetSettingPK.seq, value: sheet.sheetId, onChange: function (e) { return _this.handleTextChange(e, sheet.sheetSettingPK.seq); } })),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-1" },
-                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { type: "button", onClick: function () { return _this.start(sheet.sheetSettingPK.seq - 1); } }, "\u0E1B\u0E23\u0E31\u0E1A\u0E23\u0E32\u0E04\u0E32")),
-                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col-6" })));
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-2" },
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { type: "button", onClick: function () { return _this.start(sheet.sheetSettingPK.seq - 1); } }, "\u0E1B\u0E23\u0E31\u0E1A\u0E23\u0E32\u0E04\u0E32"),
+                    react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { type: "button", onClick: _this.stop }, "\u0E2B\u0E22\u0E38\u0E14\u0E17\u0E33\u0E07\u0E32\u0E19")),
+                react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", { className: "col col-5" })));
         };
-        _this.generateCreateButton = function () {
+        _this.generateControlButton = function () {
             return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("div", { className: "row" },
                 react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("button", { type: "button", onClick: _this.createNewSetting }, "Submit")));
         };
@@ -3375,6 +3376,18 @@ var SheetSettingPage = /** @class */ (function (_super) {
                 }
             });
         }); };
+        _this.stop = function () { return __awaiter(_this, void 0, void 0, function () {
+            var response;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, services_ControllerService__WEBPACK_IMPORTED_MODULE_3__["ControllerService"].stop()];
+                    case 1:
+                        response = _a.sent();
+                        alert(response.body.message);
+                        return [2 /*return*/];
+                }
+            });
+        }); };
         _this.state = {
             sheetCount: '',
             field: [],
@@ -3389,7 +3402,7 @@ var SheetSettingPage = /** @class */ (function (_super) {
         return react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
             this.generateSheetCountInputText(),
             this.generateSheetSettingInput(),
-            this.generateCreateButton());
+            this.generateControlButton());
     };
     return SheetSettingPage;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]));
@@ -3486,6 +3499,21 @@ var ControllerService;
         });
     }
     ControllerService.start = start;
+    ;
+    function stop() {
+        return __awaiter(this, void 0, void 0, function () {
+            var agent;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        agent = superagent__WEBPACK_IMPORTED_MODULE_0__["post"]('/aup/rest/controller/stop');
+                        return [4 /*yield*/, agent.type('application/json').send()];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    }
+    ControllerService.stop = stop;
     ;
 })(ControllerService || (ControllerService = {}));
 
