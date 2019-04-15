@@ -9,8 +9,8 @@ package com.thaisoftplus.aup.exception;
  *
  * @author witta
  */
-public class QuantityNotEnoughException extends Exception {
-    public QuantityNotEnoughException(String message) {
+public class EnptyRowException extends Exception {
+    public EnptyRowException(String message) {
         super(message);
     }
 }

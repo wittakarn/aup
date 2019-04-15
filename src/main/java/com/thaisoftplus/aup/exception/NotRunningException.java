@@ -9,8 +9,8 @@ package com.thaisoftplus.aup.exception;
  *
  * @author witta
  */
-public class NoOrderException extends Exception {
-    public NoOrderException(String message) {
+public class NotRunningException extends Exception {
+    public NotRunningException(String message) {
         super(message);
     }
 }

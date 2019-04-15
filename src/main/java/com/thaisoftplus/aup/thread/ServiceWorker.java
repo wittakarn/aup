@@ -8,7 +8,8 @@ package com.thaisoftplus.aup.thread;
 import com.thaisoftplus.aup.business.GoogleSheetBusiness;
 import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.domain.ProductData;
-import com.thaisoftplus.aup.exception.NotRunninglException;
+import com.thaisoftplus.aup.exception.EnptyRowException;
+import com.thaisoftplus.aup.exception.NotRunningException;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import com.thaisoftplus.aup.page.amazon.ProductPage;
 import java.util.List;
@@ -48,7 +49,9 @@ public class ServiceWorker implements Runnable {
         try {
             updateAmasonProductData();
             setNextRun(1);
-        } catch (NotRunninglException ex) {
+        } catch (NotRunningException ex) {
+            logger.info(ex.getMessage());
+        } catch (EnptyRowException ex) {
             logger.info(ex.getMessage());
         } catch (Exception ex) {
             logger.error("", ex);
@@ -57,7 +60,7 @@ public class ServiceWorker implements Runnable {
 
     private void updateAmasonProductData() throws Exception {
         if (!ApplicationContext.isRunning) {
-            throw new NotRunninglException("โปรแกรมถูกสั่งระงับการทำงาน");
+            throw new NotRunningException("โปรแกรมถูกสั่งระงับการทำงาน");
         }
         driver = new ChromeDriver(options);
 

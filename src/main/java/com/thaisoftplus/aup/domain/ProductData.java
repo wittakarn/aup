@@ -17,6 +17,13 @@ public class ProductData {
     private String type;
     private String addOn;
     private String delivery;
+    
+    public ProductData(){
+        shipping = "null";
+        type = "null";
+        addOn = "null";
+        delivery = "null";
+    }
 
     public String getSellerName() {
         return sellerName;

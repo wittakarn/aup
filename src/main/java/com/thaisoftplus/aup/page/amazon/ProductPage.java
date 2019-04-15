@@ -7,6 +7,7 @@ package com.thaisoftplus.aup.page.amazon;
 
 import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.domain.ProductData;
+import com.thaisoftplus.aup.exception.EnptyRowException;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import com.thaisoftplus.aup.page.BasePage;
 import com.thaisoftplus.aup.util.PageHelper;
@@ -42,8 +43,12 @@ public class ProductPage extends BasePage implements Serializable {
         this.sheetManagement = SheetManagement.getInstance();
     }
 
-    public void openProductPage() throws IOException {
+    public void openProductPage() throws IOException, EnptyRowException {
         String url = this.sheetManagement.getDataInColumn(ApplicationContext.LINK, ApplicationContext.DATA_SHEET_NAME);
+        if (url == null || url.trim() == "") {
+            throw new EnptyRowException("URL in next row is " + url);
+        }
+
         driver.get(url);
         PageHelper.waitUtilPageLoad(driver);
     }
