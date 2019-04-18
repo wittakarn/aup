@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class SheetManagement extends Sheet implements Serializable {
 
+    public static final int CACHE_RANGE = 2;
     private static int ROW_INDEX;
     private static SheetManagement instance;
 
@@ -65,6 +66,17 @@ public class SheetManagement extends Sheet implements Serializable {
         return value == null ? "" : value;
     }
 
+    public List<Object> getDataInColumn(String column, String tabName, int start, int end) throws IOException {
+        String range = String.format("'%s'!%s%d:%s%d",
+                tabName,
+                column,
+                start,
+                column,
+                end);
+        List<List<Object>> rows = reads(range);
+        return rows != null && rows.size() > 0 ? rows.get(0) : null;
+    }
+
     public BatchUpdateValuesResponse setDataInColumn(String column, String tabName, String[] value) throws IOException {
         String range = String.format("'%s'!%s%d:%s%d",
                 tabName,
@@ -84,7 +96,33 @@ public class SheetManagement extends Sheet implements Serializable {
         return getSheets().spreadsheets().values().batchUpdate(ApplicationContext.getSheetId(), body).execute();
     }
 
+    public BatchUpdateValuesResponse setDataInColumn(String columnstart, String columnEnd, String tabName, List<List<Object>> values) throws IOException {
+        String range = String.format("'%s'!%s%d:%s%d",
+                tabName,
+                columnstart,
+                ROW_INDEX,
+                columnEnd,
+                ROW_INDEX);
+        List<ValueRange> data = new ArrayList<ValueRange>();
+        data.add(new ValueRange()
+                .setRange(range)
+                .setMajorDimension("COLUMNS")
+                .setValues(values));
+        BatchUpdateValuesRequest body = new BatchUpdateValuesRequest()
+                .setValueInputOption("RAW")
+                .setData(data);
+        return getSheets().spreadsheets().values().batchUpdate(ApplicationContext.getSheetId(), body).execute();
+    }
+
     public void updateNextIndex() {
         ROW_INDEX += 1;
+    }
+
+    public static int getRowIndex() {
+        return ROW_INDEX;
+    }
+
+    public static void setRowIndex(int newRowIndex) {
+        ROW_INDEX = newRowIndex;
     }
 }

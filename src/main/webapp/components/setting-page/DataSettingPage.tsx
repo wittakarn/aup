@@ -15,7 +15,6 @@ export class DataSettingPage extends React.Component<Props, State> {
         sheetName: '',
         startRow: 3,
         link: '',
-        asin: '',
         oldData: '',
         newData: '',
         asinCrawling: '',

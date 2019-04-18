@@ -6,6 +6,7 @@
 package com.thaisoftplus.aup.page.amazon;
 
 import com.thaisoftplus.aup.context.ApplicationContext;
+import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.exception.EnptyRowException;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
@@ -44,7 +45,14 @@ public class ProductPage extends BasePage implements Serializable {
     }
 
     public void openProductPage() throws IOException, EnptyRowException {
-        String url = this.sheetManagement.getDataInColumn(ApplicationContext.LINK, ApplicationContext.DATA_SHEET_NAME);
+        String url = null;
+        
+        if (SheetContext.urls.isEmpty()) {
+            SheetContext.urls = this.sheetManagement.getDataInColumn(ApplicationContext.LINK, ApplicationContext.DATA_SHEET_NAME, SheetManagement.getRowIndex(), SheetManagement.getRowIndex() + SheetManagement.CACHE_RANGE - 1);
+        } else {
+            url = SheetContext.urls.remove(0).toString();
+        }
+        
         if (url == null || url.trim() == "") {
             throw new EnptyRowException("URL in next row is " + url);
         }
@@ -85,7 +93,9 @@ public class ProductPage extends BasePage implements Serializable {
                     pd.setSellerName(sellerName);
                 }
 
-                pd.setShipping(getDefaultText(shippingPriceElement).replace("$", ""));
+                if (shippingPriceElement != null) {
+                    pd.setShipping(getDefaultText(shippingPriceElement).replace("$", ""));
+                }
 
                 if (addOnElement != null) {
                     pd.setAddOn("Add-on");

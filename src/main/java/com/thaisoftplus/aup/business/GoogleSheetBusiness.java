@@ -9,6 +9,8 @@ import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,34 +31,59 @@ public class GoogleSheetBusiness {
     }
 
     public void updateAllProductDetailColumn(List<ProductData> productDatas) throws IOException {
-        if (productDatas.size() > 0) {
-            ProductData productData1 = productDatas.get(0);
-            sheetManagement.setDataInColumn(ApplicationContext.SELLER_NAME_1, ApplicationContext.DATA_SHEET_NAME, new String[]{productData1.getSellerName()});
-            sheetManagement.setDataInColumn(ApplicationContext.PRICE_1, ApplicationContext.DATA_SHEET_NAME, new String[]{productData1.getPrice()});
-            sheetManagement.setDataInColumn(ApplicationContext.SHIPING_1, ApplicationContext.DATA_SHEET_NAME, new String[]{productData1.getShipping()});
-            sheetManagement.setDataInColumn(ApplicationContext.ADD_ON_1, ApplicationContext.DATA_SHEET_NAME, new String[]{productData1.getAddOn()});
-            sheetManagement.setDataInColumn(ApplicationContext.TYPE_1, ApplicationContext.DATA_SHEET_NAME, new String[]{productData1.getType()});
-            sheetManagement.setDataInColumn(ApplicationContext.WID_1, ApplicationContext.DATA_SHEET_NAME, new String[]{productData1.getDelivery()});
+        List<List<Object>> rows = new ArrayList();
+        
+//        for (int i = 0; i < 18; i++) {
+//            rows.add(new ArrayList());
+//        }
+//        rows.get(0).add
+        if (productDatas != null) {
+            if (productDatas.size() > 0) {
+                ProductData productData1 = productDatas.get(0);
+                rows.add(Arrays.asList(productData1.getSellerName()));
+                rows.add(Arrays.asList(productData1.getPrice()));
+                rows.add(Arrays.asList(productData1.getShipping()));
+                rows.add(Arrays.asList(productData1.getAddOn()));
+                rows.add(Arrays.asList(productData1.getType()));
+                rows.add(Arrays.asList(productData1.getDelivery()));
+            }
+
+            if (productDatas.size() > 1) {
+                ProductData productData2 = productDatas.get(1);
+                rows.add(Arrays.asList(productData2.getSellerName()));
+                rows.add(Arrays.asList(productData2.getPrice()));
+                rows.add(Arrays.asList(productData2.getShipping()));
+                rows.add(Arrays.asList(productData2.getAddOn()));
+                rows.add(Arrays.asList(productData2.getType()));
+                rows.add(Arrays.asList(productData2.getDelivery()));
+            }
+
+            if (productDatas.size() > 2) {
+                ProductData productData3 = productDatas.get(2);
+                rows.add(Arrays.asList(productData3.getSellerName()));
+                rows.add(Arrays.asList(productData3.getPrice()));
+                rows.add(Arrays.asList(productData3.getShipping()));
+                rows.add(Arrays.asList(productData3.getAddOn()));
+                rows.add(Arrays.asList(productData3.getType()));
+                rows.add(Arrays.asList(productData3.getDelivery()));
+            }
         }
 
-        if (productDatas.size() > 1) {
-            ProductData productData2 = productDatas.get(1);
-            sheetManagement.setDataInColumn(ApplicationContext.SELLER_NAME_2, ApplicationContext.DATA_SHEET_NAME, new String[]{productData2.getSellerName()});
-            sheetManagement.setDataInColumn(ApplicationContext.PRICE_2, ApplicationContext.DATA_SHEET_NAME, new String[]{productData2.getPrice()});
-            sheetManagement.setDataInColumn(ApplicationContext.SHIPING_2, ApplicationContext.DATA_SHEET_NAME, new String[]{productData2.getShipping()});
-            sheetManagement.setDataInColumn(ApplicationContext.ADD_ON_2, ApplicationContext.DATA_SHEET_NAME, new String[]{productData2.getAddOn()});
-            sheetManagement.setDataInColumn(ApplicationContext.TYPE_2, ApplicationContext.DATA_SHEET_NAME, new String[]{productData2.getType()});
-            sheetManagement.setDataInColumn(ApplicationContext.WID_2, ApplicationContext.DATA_SHEET_NAME, new String[]{productData2.getDelivery()});
+        if (rows.size() > 0) {
+            sheetManagement.setDataInColumn(ApplicationContext.SELLER_NAME_1, ApplicationContext.WID_3, ApplicationContext.DATA_SHEET_NAME, rows);
         }
 
-        if (productDatas.size() > 2) {
-            ProductData productData3 = productDatas.get(2);
-            sheetManagement.setDataInColumn(ApplicationContext.SELLER_NAME_3, ApplicationContext.DATA_SHEET_NAME, new String[]{productData3.getSellerName()});
-            sheetManagement.setDataInColumn(ApplicationContext.PRICE_3, ApplicationContext.DATA_SHEET_NAME, new String[]{productData3.getPrice()});
-            sheetManagement.setDataInColumn(ApplicationContext.SHIPING_3, ApplicationContext.DATA_SHEET_NAME, new String[]{productData3.getShipping()});
-            sheetManagement.setDataInColumn(ApplicationContext.ADD_ON_3, ApplicationContext.DATA_SHEET_NAME, new String[]{productData3.getAddOn()});
-            sheetManagement.setDataInColumn(ApplicationContext.TYPE_3, ApplicationContext.DATA_SHEET_NAME, new String[]{productData3.getType()});
-            sheetManagement.setDataInColumn(ApplicationContext.WID_3, ApplicationContext.DATA_SHEET_NAME, new String[]{productData3.getDelivery()});
+        for (int i = rows.size(); i < 3; i++) {
+            clearDetailColumn(rows);
         }
+    }
+
+    public void clearDetailColumn(List<List<Object>> rows) throws IOException {
+        rows.add(Arrays.asList(""));
+        rows.add(Arrays.asList(""));
+        rows.add(Arrays.asList(""));
+        rows.add(Arrays.asList(""));
+        rows.add(Arrays.asList(""));
+        rows.add(Arrays.asList(""));
     }
 }

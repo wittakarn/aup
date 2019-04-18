@@ -30,7 +30,6 @@ public class DataSettingBusiness {
         ApplicationContext.DATA_SHEET_NAME = setting.getSheetName();
         ApplicationContext.START_ROW_INDEX = setting.getStartRow();
         ApplicationContext.LINK = setting.getLink();
-        ApplicationContext.ASIN = setting.getAsin();
         ApplicationContext.OLD_DATA = setting.getOldData();
         ApplicationContext.NEW_DATA = setting.getNewData();
         ApplicationContext.ASIN_CRAWLING = setting.getAsinCrawling();

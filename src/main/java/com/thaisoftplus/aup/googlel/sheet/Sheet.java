@@ -11,6 +11,7 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -33,7 +34,6 @@ import org.slf4j.LoggerFactory;
  */
 public class Sheet implements Serializable {
 
-    
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(Sheet.class);
@@ -43,8 +43,14 @@ public class Sheet implements Serializable {
         if (googleSheets == null) {
             try {
                 final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+                Credential credential = getCredentials(httpTransport);
                 googleSheets = new Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
                         .setApplicationName(ApplicationContext.APPLICATION_NAME)
+                        .setHttpRequestInitializer((HttpRequest httpRequest) -> {
+                            credential.initialize(httpRequest);
+                            httpRequest.setConnectTimeout(60000 * 3);  // 3 minutes connect timeout
+                            httpRequest.setReadTimeout(60000 * 3);  // 3 minutes read timeout
+                        })
                         .build();
             } catch (Exception ex) {
                 logger.error("", ex);

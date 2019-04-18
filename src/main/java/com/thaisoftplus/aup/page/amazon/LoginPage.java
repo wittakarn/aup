@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
  *
  * @author Administrator
  */
-public class Login extends BasePage implements Serializable {
+public class LoginPage extends BasePage implements Serializable {
 
     private static final String LOGIN_LINK_XPATH = "*//a[@id='nav-link-accountList']";
     private static final String SIGN_IN_INPUT_XPATH = "*//input[@id='ap_email']";
@@ -25,7 +25,7 @@ public class Login extends BasePage implements Serializable {
 
     private Authorization authorization;
 
-    public Login(WebDriver driver, Authorization authorization) {
+    public LoginPage(WebDriver driver, Authorization authorization) {
         super(driver);
         this.authorization = authorization;
     }

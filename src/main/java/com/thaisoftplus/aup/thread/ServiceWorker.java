@@ -40,7 +40,7 @@ public class ServiceWorker implements Runnable {
         options = new ChromeOptions();
         options.addArguments("user-data-dir=" + ApplicationContext.getUserDataPath());
         options.addArguments("start-maximized");
-        options.setHeadless(false);
+//        options.addArguments("--headless");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
     }
 
@@ -62,17 +62,14 @@ public class ServiceWorker implements Runnable {
         if (!ApplicationContext.isRunning) {
             throw new NotRunningException("โปรแกรมถูกสั่งระงับการทำงาน");
         }
-        driver = new ChromeDriver(options);
+        GoogleSheetBusiness business = new GoogleSheetBusiness();
+        business.updateOldPriceColumn();
 
+        driver = new ChromeDriver(options);
         ProductPage productPage = new ProductPage(driver);
         productPage.openProductPage();
         List<ProductData> productDatas = productPage.getProductsData();
-
-        if (productDatas != null) {
-            GoogleSheetBusiness business = new GoogleSheetBusiness();
-            business.updateOldPriceColumn();
-            business.updateAllProductDetailColumn(productDatas);
-        }
+        business.updateAllProductDetailColumn(productDatas);
 
         closeSeleniumBrowser();
     }

@@ -8,6 +8,7 @@ package com.thaisoftplus.aup.rest.service;
 import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.domain.ResponseMessage;
 import com.thaisoftplus.aup.domain.StartRequest;
+import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import com.thaisoftplus.aup.thread.ServiceWorker;
 import java.util.concurrent.Executors;
 import javax.ejb.Stateless;
@@ -44,6 +45,7 @@ public class ControllerService {
             if (!ApplicationContext.isRunning) {
                 ApplicationContext.isRunning = true;
                 ApplicationContext.SHEET_INDEX = startRequest.getIndex();
+                SheetManagement.setRowIndex(ApplicationContext.START_ROW_INDEX);
                 Executors.newFixedThreadPool(1).execute(new ServiceWorker());
                 resp.setMessage(String.format("โปรแกรมเริ่มทำงาน"));
             } else {

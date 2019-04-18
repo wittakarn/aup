@@ -31,7 +31,6 @@ public class ApplicationContext {
 
     public static String DATA_SHEET_NAME;
     public static String LINK = "A";
-    public static String ASIN = "C";
     public static String OLD_DATA = "D";
     public static String NEW_DATA = "E";
     public static String ASIN_CRAWLING = "G";

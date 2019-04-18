@@ -6,7 +6,6 @@ interface DefaultSetting {
 
 export interface DataSetting extends DefaultSetting {
     link: string,
-    asin: string,
     oldData: string,
     newData: string,
     asinCrawling: string,

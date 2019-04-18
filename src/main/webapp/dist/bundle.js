@@ -3125,7 +3125,6 @@ var DataSettingPage = /** @class */ (function (_super) {
             sheetName: '',
             startRow: 3,
             link: '',
-            asin: '',
             oldData: '',
             newData: '',
             asinCrawling: '',
