@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class SheetManagement extends Sheet implements Serializable {
 
-    public static final int CACHE_RANGE = 2;
     private static int ROW_INDEX;
     private static SheetManagement instance;
 
@@ -66,15 +65,19 @@ public class SheetManagement extends Sheet implements Serializable {
         return value == null ? "" : value;
     }
 
-    public List<Object> getDataInColumn(String column, String tabName, int start, int end) throws IOException {
+    public List<Object> getDataInColumn(String column, int start, int end, String tabName) throws IOException {
+        List<List<Object>> rows = getDataInColumns(column, column, start, end, tabName);
+        return rows != null && rows.size() > 0 ? rows.get(0) : null;
+    }
+
+    public List<List<Object>> getDataInColumns(String columnStart, String columnEnd, int start, int end, String tabName) throws IOException {
         String range = String.format("'%s'!%s%d:%s%d",
                 tabName,
-                column,
+                columnStart,
                 start,
-                column,
+                columnEnd,
                 end);
-        List<List<Object>> rows = reads(range);
-        return rows != null && rows.size() > 0 ? rows.get(0) : null;
+        return reads(range);
     }
 
     public BatchUpdateValuesResponse setDataInColumn(String column, String tabName, String[] value) throws IOException {
@@ -96,13 +99,13 @@ public class SheetManagement extends Sheet implements Serializable {
         return getSheets().spreadsheets().values().batchUpdate(ApplicationContext.getSheetId(), body).execute();
     }
 
-    public BatchUpdateValuesResponse setDataInColumn(String columnstart, String columnEnd, String tabName, List<List<Object>> values) throws IOException {
+    public BatchUpdateValuesResponse setDataInColumns(String columnStart, String columnEnd, int indexStart, int indexEnd, String tabName, List<List<Object>> values) throws IOException {
         String range = String.format("'%s'!%s%d:%s%d",
                 tabName,
-                columnstart,
-                ROW_INDEX,
+                columnStart,
+                indexStart,
                 columnEnd,
-                ROW_INDEX);
+                indexEnd);
         List<ValueRange> data = new ArrayList<ValueRange>();
         data.add(new ValueRange()
                 .setRange(range)
@@ -114,7 +117,7 @@ public class SheetManagement extends Sheet implements Serializable {
         return getSheets().spreadsheets().values().batchUpdate(ApplicationContext.getSheetId(), body).execute();
     }
 
-    public void updateNextIndex() {
+    public static void updateNextIndex() {
         ROW_INDEX += 1;
     }
 

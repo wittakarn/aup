@@ -7,6 +7,7 @@ package com.thaisoftplus.aup.thread;
 
 import com.thaisoftplus.aup.business.GoogleSheetBusiness;
 import com.thaisoftplus.aup.context.ApplicationContext;
+import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.exception.EnptyRowException;
 import com.thaisoftplus.aup.exception.NotRunningException;
@@ -81,7 +82,14 @@ public class ServiceWorker implements Runnable {
 
     private void setNextRun(int waitTime) {
         if (ApplicationContext.isRunning) {
-            this.sheetManagement.updateNextIndex();
+            
+            if (SheetManagement.getRowIndex() == SheetContext.endIndexOfBatch) {
+                SheetContext.startIndexOfBatch = SheetContext.endIndexOfBatch + 1;
+                SheetContext.endIndexOfBatch = SheetContext.startIndexOfBatch + SheetContext.CACHE_RANGE - 1;
+            }
+            
+            SheetManagement.updateNextIndex();
+
             ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.schedule(new ServiceWorker(), waitTime, TimeUnit.SECONDS);
             scheduler.shutdown();

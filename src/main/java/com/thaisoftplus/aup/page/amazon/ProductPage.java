@@ -46,13 +46,13 @@ public class ProductPage extends BasePage implements Serializable {
 
     public void openProductPage() throws IOException, EnptyRowException {
         String url = null;
-        
-        if (SheetContext.urls.isEmpty()) {
-            SheetContext.urls = this.sheetManagement.getDataInColumn(ApplicationContext.LINK, ApplicationContext.DATA_SHEET_NAME, SheetManagement.getRowIndex(), SheetManagement.getRowIndex() + SheetManagement.CACHE_RANGE - 1);
+
+        if (SheetManagement.getRowIndex() == SheetContext.startIndexOfBatch) {
+            SheetContext.urls = this.sheetManagement.getDataInColumn(ApplicationContext.LINK, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME);
         } else {
             url = SheetContext.urls.remove(0).toString();
         }
-        
+
         if (url == null || url.trim() == "") {
             throw new EnptyRowException("URL in next row is " + url);
         }

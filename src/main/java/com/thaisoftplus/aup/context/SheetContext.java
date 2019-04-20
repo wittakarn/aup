@@ -14,10 +14,11 @@ import java.util.List;
  */
 public class SheetContext {
     
-    public static int firstRowOfBatch;
+    public static final int CACHE_RANGE = 2;
+    public static int startIndexOfBatch;
+    public static int endIndexOfBatch;
 
     public static List<Object> urls = new ArrayList();
-    public static List<List<Object>> rows = new ArrayList();
     
     public static List<Object> sellerNames1 = new ArrayList();
     public static List<Object> prices1 = new ArrayList();
