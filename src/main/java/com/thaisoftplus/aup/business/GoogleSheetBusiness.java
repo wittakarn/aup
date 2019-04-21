@@ -43,53 +43,53 @@ public class GoogleSheetBusiness {
         if (productDatas != null) {
             if (productDatas.size() > 0) {
                 ProductData productData1 = productDatas.get(0);
-                SheetContext.sellerNames1.add(Arrays.asList(productData1.getSellerName()));
-                SheetContext.prices1.add(Arrays.asList(productData1.getPrice()));
-                SheetContext.shippings1.add(Arrays.asList(productData1.getShipping()));
-                SheetContext.addOns1.add(Arrays.asList(productData1.getAddOn()));
-                SheetContext.types1.add(Arrays.asList(productData1.getType()));
-                SheetContext.deliveries1.add(Arrays.asList(productData1.getDelivery()));
+                SheetContext.sellerNames1.add(productData1.getSellerName());
+                SheetContext.prices1.add(productData1.getPrice());
+                SheetContext.shippings1.add(productData1.getShipping());
+                SheetContext.addOns1.add(productData1.getAddOn());
+                SheetContext.types1.add(productData1.getType());
+                SheetContext.deliveries1.add(productData1.getDelivery());
             } else {
-                SheetContext.sellerNames1.add(Arrays.asList(""));
-                SheetContext.prices1.add(Arrays.asList(""));
-                SheetContext.shippings1.add(Arrays.asList(""));
-                SheetContext.addOns1.add(Arrays.asList(""));
-                SheetContext.types1.add(Arrays.asList(""));
-                SheetContext.deliveries1.add(Arrays.asList(""));
+                SheetContext.sellerNames1.add("");
+                SheetContext.prices1.add("");
+                SheetContext.shippings1.add("");
+                SheetContext.addOns1.add("");
+                SheetContext.types1.add("");
+                SheetContext.deliveries1.add("");
             }
 
             if (productDatas.size() > 1) {
                 ProductData productData2 = productDatas.get(1);
-                SheetContext.sellerNames2.add(Arrays.asList(productData2.getSellerName()));
-                SheetContext.prices2.add(Arrays.asList(productData2.getPrice()));
-                SheetContext.sellerNames2.add(Arrays.asList(productData2.getShipping()));
-                SheetContext.addOns2.add(Arrays.asList(productData2.getAddOn()));
-                SheetContext.types2.add(Arrays.asList(productData2.getType()));
-                SheetContext.deliveries2.add(Arrays.asList(productData2.getDelivery()));
+                SheetContext.sellerNames2.add(productData2.getSellerName());
+                SheetContext.prices2.add(productData2.getPrice());
+                SheetContext.shippings2.add(productData2.getShipping());
+                SheetContext.addOns2.add(productData2.getAddOn());
+                SheetContext.types2.add(productData2.getType());
+                SheetContext.deliveries2.add(productData2.getDelivery());
             } else {
-                SheetContext.sellerNames2.add(Arrays.asList(""));
-                SheetContext.prices2.add(Arrays.asList(""));
-                SheetContext.shippings2.add(Arrays.asList(""));
-                SheetContext.addOns2.add(Arrays.asList(""));
-                SheetContext.types2.add(Arrays.asList(""));
-                SheetContext.deliveries2.add(Arrays.asList(""));
+                SheetContext.sellerNames2.add("");
+                SheetContext.prices2.add("");
+                SheetContext.shippings2.add("");
+                SheetContext.addOns2.add("");
+                SheetContext.types2.add("");
+                SheetContext.deliveries2.add("");
             }
 
             if (productDatas.size() > 2) {
                 ProductData productData3 = productDatas.get(2);
-                SheetContext.sellerNames3.add(Arrays.asList(productData3.getSellerName()));
-                SheetContext.prices3.add(Arrays.asList(productData3.getPrice()));
-                SheetContext.shippings3.add(Arrays.asList(productData3.getShipping()));
-                SheetContext.addOns3.add(Arrays.asList(productData3.getAddOn()));
-                SheetContext.types3.add(Arrays.asList(productData3.getType()));
-                SheetContext.deliveries3.add(Arrays.asList(productData3.getDelivery()));
+                SheetContext.sellerNames3.add(productData3.getSellerName());
+                SheetContext.prices3.add(productData3.getPrice());
+                SheetContext.shippings3.add(productData3.getShipping());
+                SheetContext.addOns3.add(productData3.getAddOn());
+                SheetContext.types3.add(productData3.getType());
+                SheetContext.deliveries3.add(productData3.getDelivery());
             } else {
-                SheetContext.sellerNames3.add(Arrays.asList(""));
-                SheetContext.prices3.add(Arrays.asList(""));
-                SheetContext.shippings3.add(Arrays.asList(""));
-                SheetContext.addOns3.add(Arrays.asList(""));
-                SheetContext.types3.add(Arrays.asList(""));
-                SheetContext.deliveries3.add(Arrays.asList(""));
+                SheetContext.sellerNames3.add("");
+                SheetContext.prices3.add("");
+                SheetContext.shippings3.add("");
+                SheetContext.addOns3.add("");
+                SheetContext.types3.add("");
+                SheetContext.deliveries3.add("");
             }
         }
 

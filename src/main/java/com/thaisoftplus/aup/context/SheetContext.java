@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class SheetContext {
     
-    public static final int CACHE_RANGE = 2;
+    public static final int CACHE_RANGE = 100;
     public static int startIndexOfBatch;
     public static int endIndexOfBatch;
 
