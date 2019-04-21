@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -20,6 +22,7 @@ import java.util.List;
  */
 public class GoogleSheetBusiness {
 
+    private static final Logger logger = LoggerFactory.getLogger(GoogleSheetBusiness.class);
     private final SheetManagement sheetManagement;
 
     public GoogleSheetBusiness() {
@@ -27,8 +30,13 @@ public class GoogleSheetBusiness {
     }
 
     public void updateOldPriceColumn() throws IOException {
-        List<List<Object>> newValues = sheetManagement.getDataInColumns(ApplicationContext.NEW_DATA, ApplicationContext.NEW_DATA, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME);
-        sheetManagement.setDataInColumns(ApplicationContext.OLD_DATA, ApplicationContext.OLD_DATA, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME, newValues);
+        if (SheetManagement.getRowIndex() == SheetContext.startIndexOfBatch) {
+            List<List<Object>> rows = new ArrayList();
+            List<Object> cells = convert2DListToList(sheetManagement.getDataInColumns(ApplicationContext.NEW_DATA, ApplicationContext.NEW_DATA, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME));
+            rows.add(cells);
+
+            sheetManagement.setDataInColumns(ApplicationContext.OLD_DATA, ApplicationContext.OLD_DATA, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME, rows);
+        }
     }
 
     public void updateAllProductDetailColumn(List<ProductData> productDatas) throws IOException {
@@ -132,5 +140,15 @@ public class GoogleSheetBusiness {
             SheetContext.types3 = new ArrayList();
             SheetContext.deliveries3 = new ArrayList();
         }
+    }
+
+    public static List<Object> convert2DListToList(List<List<Object>> rows) {
+        List<Object> cells = new ArrayList();
+        for (List<Object> row : rows) {
+            for (Object cell : row) {
+                cells.add(cell);
+            }
+        }
+        return cells;
     }
 }

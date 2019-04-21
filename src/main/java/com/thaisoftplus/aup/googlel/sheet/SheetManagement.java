@@ -65,11 +65,6 @@ public class SheetManagement extends Sheet implements Serializable {
         return value == null ? "" : value;
     }
 
-    public List<Object> getDataInColumn(String column, int start, int end, String tabName) throws IOException {
-        List<List<Object>> rows = getDataInColumns(column, column, start, end, tabName);
-        return rows != null && rows.size() > 0 ? rows.get(0) : null;
-    }
-
     public List<List<Object>> getDataInColumns(String columnStart, String columnEnd, int start, int end, String tabName) throws IOException {
         String range = String.format("'%s'!%s%d:%s%d",
                 tabName,

@@ -5,6 +5,7 @@
  */
 package com.thaisoftplus.aup.page.amazon;
 
+import com.thaisoftplus.aup.business.GoogleSheetBusiness;
 import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ProductData;
@@ -48,12 +49,11 @@ public class ProductPage extends BasePage implements Serializable {
         String url = null;
 
         if (SheetManagement.getRowIndex() == SheetContext.startIndexOfBatch) {
-            SheetContext.urls = this.sheetManagement.getDataInColumn(ApplicationContext.LINK, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME);
-        } else {
-            url = SheetContext.urls.remove(0).toString();
+            SheetContext.urls = GoogleSheetBusiness.convert2DListToList(this.sheetManagement.getDataInColumns(ApplicationContext.LINK, ApplicationContext.LINK, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME));
         }
+        url = SheetContext.urls.remove(0).toString();
 
-        if (url == null || url.trim() == "") {
+        if (url == null || "".equals(url.trim())) {
             throw new EnptyRowException("URL in next row is " + url);
         }
 
