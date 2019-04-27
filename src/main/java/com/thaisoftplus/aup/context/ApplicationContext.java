@@ -52,7 +52,7 @@ public class ApplicationContext {
     public static String ADD_ON_3 = "W";
     public static String TYPE_3 = "X";
     public static String WID_3 = "Y";
-    
+
     public static String API_SHEET_NAME;
     public static int API_START_ROW;
 
@@ -61,7 +61,7 @@ public class ApplicationContext {
                 ? ApplicationContext.configData.get(USER_DATA_PATH_CONFIG)
                 : "C:\\Users\\witta\\AppData\\Local\\Google\\Chrome\\User Data";
     }
-    
+
     public static String getSheetId() {
         return sheetSetting.get(SHEET_INDEX).getSheetId();
     }

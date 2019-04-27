@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,61 +40,61 @@ public class GoogleSheetBusiness {
         }
     }
 
-    public void updateAllProductDetailColumn(List<ProductData> productDatas) throws IOException {
-        if (productDatas != null) {
-            if (productDatas.size() > 0) {
-                ProductData productData1 = productDatas.get(0);
-                SheetContext.sellerNames1.add(productData1.getSellerName());
-                SheetContext.prices1.add(productData1.getPrice());
-                SheetContext.shippings1.add(productData1.getShipping());
-                SheetContext.addOns1.add(productData1.getAddOn());
-                SheetContext.types1.add(productData1.getType());
-                SheetContext.deliveries1.add(productData1.getDelivery());
-            } else {
-                SheetContext.sellerNames1.add("");
-                SheetContext.prices1.add("");
-                SheetContext.shippings1.add("");
-                SheetContext.addOns1.add("");
-                SheetContext.types1.add("");
-                SheetContext.deliveries1.add("");
-            }
-
-            if (productDatas.size() > 1) {
-                ProductData productData2 = productDatas.get(1);
-                SheetContext.sellerNames2.add(productData2.getSellerName());
-                SheetContext.prices2.add(productData2.getPrice());
-                SheetContext.shippings2.add(productData2.getShipping());
-                SheetContext.addOns2.add(productData2.getAddOn());
-                SheetContext.types2.add(productData2.getType());
-                SheetContext.deliveries2.add(productData2.getDelivery());
-            } else {
-                SheetContext.sellerNames2.add("");
-                SheetContext.prices2.add("");
-                SheetContext.shippings2.add("");
-                SheetContext.addOns2.add("");
-                SheetContext.types2.add("");
-                SheetContext.deliveries2.add("");
-            }
-
-            if (productDatas.size() > 2) {
-                ProductData productData3 = productDatas.get(2);
-                SheetContext.sellerNames3.add(productData3.getSellerName());
-                SheetContext.prices3.add(productData3.getPrice());
-                SheetContext.shippings3.add(productData3.getShipping());
-                SheetContext.addOns3.add(productData3.getAddOn());
-                SheetContext.types3.add(productData3.getType());
-                SheetContext.deliveries3.add(productData3.getDelivery());
-            } else {
-                SheetContext.sellerNames3.add("");
-                SheetContext.prices3.add("");
-                SheetContext.shippings3.add("");
-                SheetContext.addOns3.add("");
-                SheetContext.types3.add("");
-                SheetContext.deliveries3.add("");
-            }
+    public void keepAllProductDetailColumnInCache(List<ProductData> productDatas) throws IOException {
+        if (productDatas.size() > 0) {
+            ProductData productData1 = productDatas.get(0);
+            SheetContext.sellerNames1.add(productData1.getSellerName());
+            SheetContext.prices1.add(productData1.getPrice());
+            SheetContext.shippings1.add(productData1.getShipping());
+            SheetContext.addOns1.add(productData1.getAddOn());
+            SheetContext.types1.add(productData1.getType());
+            SheetContext.deliveries1.add(productData1.getDelivery());
+        } else {
+            SheetContext.sellerNames1.add("");
+            SheetContext.prices1.add("");
+            SheetContext.shippings1.add("");
+            SheetContext.addOns1.add("");
+            SheetContext.types1.add("");
+            SheetContext.deliveries1.add("");
         }
 
-        if (SheetManagement.getRowIndex() == SheetContext.endIndexOfBatch) {
+        if (productDatas.size() > 1) {
+            ProductData productData2 = productDatas.get(1);
+            SheetContext.sellerNames2.add(productData2.getSellerName());
+            SheetContext.prices2.add(productData2.getPrice());
+            SheetContext.shippings2.add(productData2.getShipping());
+            SheetContext.addOns2.add(productData2.getAddOn());
+            SheetContext.types2.add(productData2.getType());
+            SheetContext.deliveries2.add(productData2.getDelivery());
+        } else {
+            SheetContext.sellerNames2.add("");
+            SheetContext.prices2.add("");
+            SheetContext.shippings2.add("");
+            SheetContext.addOns2.add("");
+            SheetContext.types2.add("");
+            SheetContext.deliveries2.add("");
+        }
+
+        if (productDatas.size() > 2) {
+            ProductData productData3 = productDatas.get(2);
+            SheetContext.sellerNames3.add(productData3.getSellerName());
+            SheetContext.prices3.add(productData3.getPrice());
+            SheetContext.shippings3.add(productData3.getShipping());
+            SheetContext.addOns3.add(productData3.getAddOn());
+            SheetContext.types3.add(productData3.getType());
+            SheetContext.deliveries3.add(productData3.getDelivery());
+        } else {
+            SheetContext.sellerNames3.add("");
+            SheetContext.prices3.add("");
+            SheetContext.shippings3.add("");
+            SheetContext.addOns3.add("");
+            SheetContext.types3.add("");
+            SheetContext.deliveries3.add("");
+        }
+    }
+
+    public void updateAllProductDetailColumns() throws IOException {
+        if (SheetContext.sellerNames1.size() > 0) {
             List<List<Object>> rows = new ArrayList();
 
             rows.add(SheetContext.sellerNames1);
@@ -117,7 +118,12 @@ public class GoogleSheetBusiness {
             rows.add(SheetContext.types3);
             rows.add(SheetContext.deliveries3);
 
-            sheetManagement.setDataInColumns(ApplicationContext.SELLER_NAME_1, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME, rows);
+            try {
+                sheetManagement.setDataInColumns(ApplicationContext.SELLER_NAME_1, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetManagement.getRowIndex(), ApplicationContext.DATA_SHEET_NAME, rows);
+            } catch (IOException ex) {
+                // retry
+                sheetManagement.setDataInColumns(ApplicationContext.SELLER_NAME_1, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetManagement.getRowIndex(), ApplicationContext.DATA_SHEET_NAME, rows);
+            }
 
             SheetContext.sellerNames1 = new ArrayList();
             SheetContext.prices1 = new ArrayList();

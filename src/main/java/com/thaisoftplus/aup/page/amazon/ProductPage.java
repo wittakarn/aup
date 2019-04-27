@@ -51,7 +51,9 @@ public class ProductPage extends BasePage implements Serializable {
         if (SheetManagement.getRowIndex() == SheetContext.startIndexOfBatch) {
             SheetContext.urls = GoogleSheetBusiness.convert2DListToList(this.sheetManagement.getDataInColumns(ApplicationContext.LINK, ApplicationContext.LINK, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME));
         }
-        url = SheetContext.urls.remove(0).toString();
+        if (SheetContext.urls != null && SheetContext.urls.size() > 0) {
+            url = SheetContext.urls.remove(0).toString();
+        }
 
         if (url == null || "".equals(url.trim())) {
             throw new EnptyRowException("URL in next row is " + url);
@@ -62,7 +64,7 @@ public class ProductPage extends BasePage implements Serializable {
     }
 
     public List<ProductData> getProductsData() {
-        List<ProductData> pds = null;
+        List<ProductData> pds = new ArrayList<>();
         WebElement priceElement;
         WebElement sellerNameElement;
         WebElement shippingPriceElement;
@@ -71,7 +73,6 @@ public class ProductPage extends BasePage implements Serializable {
         WebElement deliveryElement;
         List<WebElement> productOptionElements = getProductOption();
         if (productOptionElements != null) {
-            pds = new ArrayList<>();
             for (WebElement productOptionElement : productOptionElements) {
                 ProductData pd = new ProductData();
                 priceElement = getFirstElement(productOptionElement, By.xpath(PRICE_XPATH));
