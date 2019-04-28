@@ -38,21 +38,17 @@ public class ProductPage extends BasePage implements Serializable {
     private static final String DELIVERY_XPATH = "*//ul[contains(@class ,'olpFastTrack')]";
 
     private static final int MAX_OPTION_SIZE = 3;
-    private final SheetManagement sheetManagement;
 
     public ProductPage(WebDriver driver) {
         super(driver);
-        this.sheetManagement = SheetManagement.getInstance();
     }
 
-    public void openProductPage() throws IOException, EnptyRowException {
+    public int openProductPage() throws IOException, EnptyRowException {
         String url = null;
-
-        if (SheetManagement.getRowIndex() == SheetContext.startIndexOfBatch) {
-            SheetContext.urls = GoogleSheetBusiness.convert2DListToList(this.sheetManagement.getDataInColumns(ApplicationContext.LINK, ApplicationContext.LINK, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME));
-        }
+        int currentIndex = 0;
         if (SheetContext.urls != null && SheetContext.urls.size() > 0) {
-            url = SheetContext.urls.remove(0).toString();
+            url = SheetContext.urls.poll().toString();
+            currentIndex = SheetContext.currentIdex++;
         }
 
         if (url == null || "".equals(url.trim())) {
@@ -61,6 +57,7 @@ public class ProductPage extends BasePage implements Serializable {
 
         driver.get(url);
         PageHelper.waitUtilPageLoad(driver);
+        return currentIndex;
     }
 
     public List<ProductData> getProductsData() {

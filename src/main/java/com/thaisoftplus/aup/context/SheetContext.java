@@ -5,8 +5,12 @@
  */
 package com.thaisoftplus.aup.context;
 
+import com.thaisoftplus.aup.domain.SellerData;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  *
@@ -15,29 +19,10 @@ import java.util.List;
 public class SheetContext {
     
     public static final int CACHE_RANGE = 100;
+    public static int currentIdex;
     public static int startIndexOfBatch;
     public static int endIndexOfBatch;
 
-    public static List<Object> urls = new ArrayList();
-    
-    public static List<Object> sellerNames1 = new ArrayList();
-    public static List<Object> prices1 = new ArrayList();
-    public static List<Object> shippings1 = new ArrayList();
-    public static List<Object> addOns1 = new ArrayList();
-    public static List<Object> types1 = new ArrayList();
-    public static List<Object> deliveries1 = new ArrayList();
-
-    public static List<Object> sellerNames2 = new ArrayList();
-    public static List<Object> prices2 = new ArrayList();
-    public static List<Object> shippings2 = new ArrayList();
-    public static List<Object> addOns2 = new ArrayList();
-    public static List<Object> types2 = new ArrayList();
-    public static List<Object> deliveries2 = new ArrayList();
-
-    public static List<Object> sellerNames3 = new ArrayList();
-    public static List<Object> prices3 = new ArrayList();
-    public static List<Object> shippings3 = new ArrayList();
-    public static List<Object> addOns3 = new ArrayList();
-    public static List<Object> types3 = new ArrayList();
-    public static List<Object> deliveries3 = new ArrayList();
+    public static Queue<Object> urls = new ConcurrentLinkedQueue();
+    public static List<SellerData> sellersData = Collections.synchronizedList(new ArrayList());
 }

@@ -46,9 +46,9 @@ public class ControllerService {
             if (!ApplicationContext.isRunning) {
                 ApplicationContext.isRunning = true;
                 ApplicationContext.SHEET_INDEX = startRequest.getIndex();
+                SheetContext.currentIdex = ApplicationContext.START_ROW_INDEX;
                 SheetContext.startIndexOfBatch = ApplicationContext.START_ROW_INDEX;
                 SheetContext.endIndexOfBatch = ApplicationContext.START_ROW_INDEX + SheetContext.CACHE_RANGE - 1;
-                SheetManagement.setRowIndex(ApplicationContext.START_ROW_INDEX);
                 Executors.newFixedThreadPool(1).execute(new ServiceWorker());
                 resp.setMessage(String.format("โปรแกรมเริ่มทำงาน"));
             } else {
