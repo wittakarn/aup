@@ -44,6 +44,7 @@ public class ServiceWorker implements Runnable {
             updateAmasonProductData();
         } catch (NotRunningException | EnptyRowException ex) {
             logger.info(ex.getMessage());
+            SheetContext.isDone = true;
         } catch (Exception ex) {
             logger.error("", ex);
         }

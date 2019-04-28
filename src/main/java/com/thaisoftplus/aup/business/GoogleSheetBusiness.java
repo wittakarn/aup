@@ -26,22 +26,22 @@ import org.slf4j.LoggerFactory;
  * @author witta
  */
 public class GoogleSheetBusiness {
-
+    
     private static final Logger logger = LoggerFactory.getLogger(GoogleSheetBusiness.class);
     private final SheetManagement sheetManagement;
-
+    
     public GoogleSheetBusiness() {
         this.sheetManagement = SheetManagement.getInstance();
     }
-
+    
     public void updateOldPriceColumn() throws IOException {
         List<List<Object>> rows = new ArrayList();
         List<Object> cells = convert2DListToList(sheetManagement.getDataInColumns(ApplicationContext.NEW_DATA, ApplicationContext.NEW_DATA, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME));
         rows.add(cells);
-
+        
         sheetManagement.setDataInColumns(ApplicationContext.OLD_DATA, ApplicationContext.OLD_DATA, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME, rows);
     }
-
+    
     public void keepAllProductDetailColumnInCache(int currentIndex, List<ProductData> productDatas) throws IOException {
         SellerData sellersData = new SellerData();
         if (productDatas.size() > 0) {
@@ -50,14 +50,14 @@ public class GoogleSheetBusiness {
         } else {
             sellersData.setProductData1(new ProductData());
         }
-
+        
         if (productDatas.size() > 1) {
             ProductData productData2 = productDatas.get(1);
             sellersData.setProductData2(productData2);
         } else {
             sellersData.setProductData2(new ProductData());
         }
-
+        
         if (productDatas.size() > 2) {
             ProductData productData3 = productDatas.get(2);
             sellersData.setProductData3(productData3);
@@ -66,33 +66,32 @@ public class GoogleSheetBusiness {
         }
         SheetContext.sellersData.add(sellersData);
     }
-
+    
     public void updateAllProductDetailColumns() throws IOException {
+        Collections.sort(SheetContext.sellersData);
         if (SheetContext.sellersData.size() > 0) {
             List<List<Object>> rows = new ArrayList();
-
+            
             List<Object> sellerNames1 = new ArrayList();
             List<Object> prices1 = new ArrayList();
             List<Object> shippings1 = new ArrayList();
             List<Object> addOns1 = new ArrayList();
             List<Object> types1 = new ArrayList();
             List<Object> deliveries1 = new ArrayList();
-
+            
             List<Object> sellerNames2 = new ArrayList();
             List<Object> prices2 = new ArrayList();
             List<Object> shippings2 = new ArrayList();
             List<Object> addOns2 = new ArrayList();
             List<Object> types2 = new ArrayList();
             List<Object> deliveries2 = new ArrayList();
-
+            
             List<Object> sellerNames3 = new ArrayList();
             List<Object> prices3 = new ArrayList();
             List<Object> shippings3 = new ArrayList();
             List<Object> addOns3 = new ArrayList();
             List<Object> types3 = new ArrayList();
             List<Object> deliveries3 = new ArrayList();
-            
-            
             
             for (SellerData sellerData : SheetContext.sellersData) {
                 sellerNames1.add(sellerData.getProductData1().getSellerName());
@@ -123,32 +122,32 @@ public class GoogleSheetBusiness {
             rows.add(addOns1);
             rows.add(types1);
             rows.add(deliveries1);
-
+            
             rows.add(sellerNames2);
             rows.add(prices2);
             rows.add(shippings2);
             rows.add(addOns2);
             rows.add(types2);
             rows.add(deliveries2);
-
+            
             rows.add(sellerNames3);
             rows.add(prices3);
             rows.add(shippings3);
             rows.add(addOns3);
             rows.add(types3);
             rows.add(deliveries3);
-
+            
             try {
                 sheetManagement.setDataInColumns(ApplicationContext.SELLER_NAME_1, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetContext.currentIdex, ApplicationContext.DATA_SHEET_NAME, rows);
             } catch (IOException ex) {
                 // retry once
                 sheetManagement.setDataInColumns(ApplicationContext.SELLER_NAME_1, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetContext.currentIdex, ApplicationContext.DATA_SHEET_NAME, rows);
             }
-
+            
             SheetContext.sellersData = Collections.synchronizedList(new ArrayList());
         }
     }
-
+    
     public static List<Object> convert2DListToList(List<List<Object>> rows) {
         List<Object> cells = new ArrayList();
         for (List<Object> row : rows) {
@@ -158,7 +157,7 @@ public class GoogleSheetBusiness {
         }
         return cells;
     }
-
+    
     public static Queue<Object> convert2DListToQueue(List<List<Object>> rows) {
         Queue queue = new ConcurrentLinkedQueue();
         for (List<Object> row : rows) {

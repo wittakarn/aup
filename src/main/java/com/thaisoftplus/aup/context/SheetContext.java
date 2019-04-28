@@ -22,6 +22,7 @@ public class SheetContext {
     public static int currentIdex;
     public static int startIndexOfBatch;
     public static int endIndexOfBatch;
+    public static boolean isDone = false;
 
     public static Queue<Object> urls = new ConcurrentLinkedQueue();
     public static List<SellerData> sellersData = Collections.synchronizedList(new ArrayList());

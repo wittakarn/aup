@@ -9,12 +9,11 @@ import com.thaisoftplus.aup.business.GoogleSheetBusiness;
 import com.thaisoftplus.aup.context.ApplicationContext;
 import static com.thaisoftplus.aup.context.ApplicationContext.sheetSetting;
 import com.thaisoftplus.aup.context.SheetContext;
-import com.thaisoftplus.aup.context.ThreadContext;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +29,7 @@ public class Main implements Runnable {
     public void run() {
         logger.info("Main thread start...");
         if (ApplicationContext.isRunning) {
+            ExecutorService executorService = Executors.newFixedThreadPool(3);
             GoogleSheetBusiness business = new GoogleSheetBusiness();
             try {
                 SheetManagement sheetManagement = SheetManagement.getInstance();
@@ -41,19 +41,33 @@ public class Main implements Runnable {
                         SheetContext.endIndexOfBatch,
                         ApplicationContext.DATA_SHEET_NAME)
                 );
-                ThreadContext.executorService.submit(new ServiceWorker());
-                ThreadContext.executorService.submit(new ServiceWorker());
-                ThreadContext.executorService.submit(new ServiceWorker());
+                final Future<String> runFuture1 = executorService.submit(new ServiceWorker(), "done");
+                final Future<String> runFuture2 = executorService.submit(new ServiceWorker(), "done");
+                final Future<String> runFuture3 = executorService.submit(new ServiceWorker(), "done");
+                try {
+                    runFuture1.get();
+                    runFuture2.get();
+                    runFuture3.get();
+                } catch (Exception ex) {
+                    logger.error("", ex);
+                }
 
-                ThreadContext.executorService.shutdown();
+                executorService.shutdown();
 
                 business.updateAllProductDetailColumns();
-                if (sheetSetting.size() - 1 > ApplicationContext.SHEET_INDEX) {
-                    setNextSheet();
+
+                if (SheetContext.isDone) {
+                    SheetContext.isDone = false;
+                    if (sheetSetting.size() - 1 > ApplicationContext.SHEET_INDEX) {
+                        setNextSheet();
+                    } else {
+                        setRerunSheet();
+                    }
                 } else {
-                    setRerunSheet();
+                    setNextRun();
                 }
-                setNextRun(1);
+
+                executeMainThread();
             } catch (IOException ex) {
                 logger.error("", ex);
             }
@@ -61,11 +75,9 @@ public class Main implements Runnable {
     }
 
     private void setNextSheet() {
-        if (sheetSetting.size() - 1 > ApplicationContext.SHEET_INDEX) {
-            ApplicationContext.SHEET_INDEX += 1;
-            SheetContext.startIndexOfBatch = ApplicationContext.START_ROW_INDEX;
-            SheetContext.endIndexOfBatch = ApplicationContext.START_ROW_INDEX + SheetContext.CACHE_RANGE - 1;
-        }
+        ApplicationContext.SHEET_INDEX += 1;
+        SheetContext.startIndexOfBatch = ApplicationContext.START_ROW_INDEX;
+        SheetContext.endIndexOfBatch = ApplicationContext.START_ROW_INDEX + SheetContext.CACHE_RANGE - 1;
     }
 
     private void setRerunSheet() {
@@ -74,13 +86,14 @@ public class Main implements Runnable {
         SheetContext.endIndexOfBatch = ApplicationContext.START_ROW_INDEX + SheetContext.CACHE_RANGE - 1;
     }
 
-    private void setNextRun(int waitTime) {
-        if (ApplicationContext.isRunning) {
-            SheetContext.startIndexOfBatch = SheetContext.endIndexOfBatch + 1;
-            SheetContext.endIndexOfBatch = SheetContext.startIndexOfBatch + SheetContext.CACHE_RANGE - 1;
-            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.schedule(new Main(), waitTime, TimeUnit.MILLISECONDS);
-            scheduler.shutdown();
-        }
+    private void setNextRun() {
+        SheetContext.startIndexOfBatch = SheetContext.endIndexOfBatch + 1;
+        SheetContext.endIndexOfBatch = SheetContext.startIndexOfBatch + SheetContext.CACHE_RANGE - 1;
+    }
+
+    public static void executeMainThread() {
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new Main());
+        executorService.shutdown();
     }
 }
