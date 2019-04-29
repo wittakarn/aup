@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +42,9 @@ public class Main implements Runnable {
                         SheetContext.endIndexOfBatch,
                         ApplicationContext.DATA_SHEET_NAME)
                 );
-                final Future<String> runFuture1 = executorService.submit(new ServiceWorker(), "done");
-                final Future<String> runFuture2 = executorService.submit(new ServiceWorker(), "done");
-                final Future<String> runFuture3 = executorService.submit(new ServiceWorker(), "done");
+                final Future<String> runFuture1 = executorService.submit(new ServiceWorker(1), "done");
+                final Future<String> runFuture2 = executorService.submit(new ServiceWorker(2), "done");
+                final Future<String> runFuture3 = executorService.submit(new ServiceWorker(3), "done");
                 try {
                     runFuture1.get();
                     runFuture2.get();
@@ -67,6 +68,11 @@ public class Main implements Runnable {
                     setNextRun();
                 }
 
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    logger.error("", ex);
+                }
                 executeMainThread();
             } catch (IOException ex) {
                 logger.error("", ex);

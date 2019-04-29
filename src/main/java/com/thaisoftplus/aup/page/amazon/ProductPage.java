@@ -5,12 +5,10 @@
  */
 package com.thaisoftplus.aup.page.amazon;
 
-import com.thaisoftplus.aup.business.GoogleSheetBusiness;
-import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ProductData;
+import com.thaisoftplus.aup.exception.BatchEndException;
 import com.thaisoftplus.aup.exception.EnptyRowException;
-import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import com.thaisoftplus.aup.page.BasePage;
 import com.thaisoftplus.aup.util.PageHelper;
 import java.io.IOException;
@@ -43,7 +41,7 @@ public class ProductPage extends BasePage implements Serializable {
         super(driver);
     }
 
-    public int openProductPage() throws IOException, EnptyRowException {
+    public int openProductPage() throws IOException, EnptyRowException, BatchEndException {
         String url = null;
         int currentIndex = 0;
         if (SheetContext.urls != null && SheetContext.urls.size() > 0) {
@@ -51,8 +49,13 @@ public class ProductPage extends BasePage implements Serializable {
             currentIndex = SheetContext.currentIdex++;
         }
 
-        if (url == null || "".equals(url.trim())) {
-            throw new EnptyRowException("URL in next row is " + url);
+        if (url == null) {
+            closeSeleniumBrowser();
+            throw new BatchEndException("SheetContext.urls is empty");
+        } else if ("".equals(url.trim())) {
+            SheetContext.isDone = true;
+            closeSeleniumBrowser();
+            throw new EnptyRowException("URL in next row is empty");
         }
 
         driver.get(url);

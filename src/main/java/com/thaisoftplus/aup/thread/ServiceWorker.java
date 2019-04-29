@@ -9,6 +9,7 @@ import com.thaisoftplus.aup.business.GoogleSheetBusiness;
 import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ProductData;
+import com.thaisoftplus.aup.exception.BatchEndException;
 import com.thaisoftplus.aup.exception.EnptyRowException;
 import com.thaisoftplus.aup.exception.NotRunningException;
 import com.thaisoftplus.aup.page.amazon.ProductPage;
@@ -30,11 +31,12 @@ public class ServiceWorker implements Runnable {
     private final ChromeOptions options;
     private WebDriver driver;
 
-    public ServiceWorker() {
+    public ServiceWorker(int threadNumber) {
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         options = new ChromeOptions();
-        options.addArguments("user-data-dir=" + ApplicationContext.getUserDataPath());
+        options.addArguments("user-data-dir=" + ApplicationContext.getUserDataPath() + threadNumber);
         options.addArguments("start-maximized");
+        options.addArguments("--no-sandbox");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
     }
 
@@ -42,9 +44,8 @@ public class ServiceWorker implements Runnable {
     public void run() {
         try {
             updateAmasonProductData();
-        } catch (NotRunningException | EnptyRowException ex) {
+        } catch (NotRunningException | EnptyRowException | BatchEndException ex) {
             logger.info(ex.getMessage());
-            SheetContext.isDone = true;
         } catch (Exception ex) {
             logger.error("", ex);
         }

@@ -12,12 +12,10 @@ import com.thaisoftplus.aup.domain.SellerData;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

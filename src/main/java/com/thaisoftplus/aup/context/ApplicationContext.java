@@ -59,7 +59,7 @@ public class ApplicationContext {
     public static String getUserDataPath() {
         return ApplicationContext.configData.get(USER_DATA_PATH_CONFIG) != null
                 ? ApplicationContext.configData.get(USER_DATA_PATH_CONFIG)
-                : "C:\\Users\\witta\\AppData\\Local\\Google\\Chrome\\User Data";
+                : "D:\\chrome-profiles\\profile";
     }
 
     public static String getSheetId() {
