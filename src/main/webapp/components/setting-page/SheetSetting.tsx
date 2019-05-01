@@ -84,16 +84,12 @@ export class SheetSettingPage extends React.Component<Props, State> {
         return (
             <div className="row">
                 <span className="col col-2">Sheet number {sheet.sheetSettingPK.seq}</span>
-                <span className="col col-3">
+                <span className="col col-5">
                     <input type="text"
                         data-index={sheet.sheetSettingPK.seq}
                         value={sheet.sheetId}
                         onChange={e => this.handleTextChange(e, sheet.sheetSettingPK.seq)}
                     />
-                </span>
-                <span className="col col-2">
-                    <button type="button" onClick={() => this.start(sheet.sheetSettingPK.seq - 1)}>ปรับราคา</button>
-                    <button type="button" onClick={this.stop}>หยุดทำงาน</button>
                 </span>
                 <span className="col col-5"></span>
             </div>
@@ -104,6 +100,8 @@ export class SheetSettingPage extends React.Component<Props, State> {
         return (
             <div className="row">
                 <button type="button" onClick={this.createNewSetting}>Submit</button>
+                <button type="button" onClick={() => this.start(0)}>เริ่มทำงาน</button>
+                <button type="button" onClick={this.stop}>หยุดทำงาน</button>
             </div>
         );
     }

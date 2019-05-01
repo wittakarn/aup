@@ -44,7 +44,10 @@ public class ServiceWorker implements Runnable {
     public void run() {
         try {
             updateAmasonProductData();
-        } catch (NotRunningException | EnptyRowException | BatchEndException ex) {
+        } catch (BatchEndException ex) {
+            logger.info(ex.getMessage());
+        } catch (EnptyRowException ex) {
+            SheetContext.isDone = true;
             logger.info(ex.getMessage());
         } catch (Exception ex) {
             logger.error("", ex);
@@ -61,7 +64,7 @@ public class ServiceWorker implements Runnable {
         business.keepAllProductDetailColumnInCache(currentIndex, productDatas);
 
         closeSeleniumBrowser();
-        if (SheetContext.urls != null && SheetContext.urls.size() > 0) {
+        if (!SheetContext.isUrlsEmpty()) {
             updateAmasonProductData();
         }
     }

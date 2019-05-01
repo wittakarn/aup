@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,10 +30,8 @@ public class Main implements Runnable {
         logger.info("Main thread start...");
         if (ApplicationContext.isRunning) {
             ExecutorService executorService = Executors.newFixedThreadPool(3);
-            GoogleSheetBusiness business = new GoogleSheetBusiness();
             try {
                 SheetManagement sheetManagement = SheetManagement.getInstance();
-                business.updateOldPriceColumn();
                 SheetContext.urls = GoogleSheetBusiness.convert2DListToQueue(sheetManagement.getDataInColumns(
                         ApplicationContext.LINK,
                         ApplicationContext.LINK,
@@ -42,6 +39,10 @@ public class Main implements Runnable {
                         SheetContext.endIndexOfBatch,
                         ApplicationContext.DATA_SHEET_NAME)
                 );
+
+                GoogleSheetBusiness business = new GoogleSheetBusiness();
+                business.updateOldPriceColumn();
+
                 final Future<String> runFuture1 = executorService.submit(new ServiceWorker(1), "done");
                 final Future<String> runFuture2 = executorService.submit(new ServiceWorker(2), "done");
                 final Future<String> runFuture3 = executorService.submit(new ServiceWorker(3), "done");

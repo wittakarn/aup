@@ -41,24 +41,22 @@ public class ProductPage extends BasePage implements Serializable {
         super(driver);
     }
 
-    public int openProductPage() throws IOException, EnptyRowException, BatchEndException {
-        String url = null;
+    public int openProductPage() throws BatchEndException, EnptyRowException {
         int currentIndex = 0;
-        if (SheetContext.urls != null && SheetContext.urls.size() > 0) {
-            url = SheetContext.urls.poll().toString();
-            currentIndex = SheetContext.currentIdex++;
-        }
-
-        if (url == null) {
+        if (SheetContext.isUrlsEmpty()) {
             closeSeleniumBrowser();
             throw new BatchEndException("SheetContext.urls is empty");
-        } else if ("".equals(url.trim())) {
-            SheetContext.isDone = true;
-            closeSeleniumBrowser();
-            throw new EnptyRowException("URL in next row is empty");
+        } else {
+            Object url = SheetContext.urls.poll();
+            if ("".endsWith(url.toString().trim())) {
+                closeSeleniumBrowser();
+                throw new EnptyRowException("URL in next row is empty");
+            } else {
+                currentIndex = SheetContext.currentIdex++;
+                driver.get(url.toString());
+            }
         }
 
-        driver.get(url);
         PageHelper.waitUtilPageLoad(driver);
         return currentIndex;
     }

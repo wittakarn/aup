@@ -12,7 +12,9 @@ import com.thaisoftplus.aup.domain.SellerData;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -33,11 +35,12 @@ public class GoogleSheetBusiness {
     }
     
     public void updateOldPriceColumn() throws IOException {
+        int endIndexOfBatch = SheetContext.startIndexOfBatch + SheetContext.urls.size() - 1;
         List<List<Object>> rows = new ArrayList();
-        List<Object> cells = convert2DListToList(sheetManagement.getDataInColumns(ApplicationContext.NEW_DATA, ApplicationContext.NEW_DATA, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME));
+        List<Object> cells = convert2DListToList(sheetManagement.getDataInColumns(ApplicationContext.NEW_DATA, ApplicationContext.NEW_DATA, SheetContext.startIndexOfBatch, endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME));
         rows.add(cells);
         
-        sheetManagement.setDataInColumns(ApplicationContext.OLD_DATA, ApplicationContext.OLD_DATA, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME, rows);
+        sheetManagement.setDataInColumns(ApplicationContext.OLD_DATA, ApplicationContext.OLD_DATA, SheetContext.startIndexOfBatch, endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME, rows);
     }
     
     public void keepAllProductDetailColumnInCache(int currentIndex, List<ProductData> productDatas) throws IOException {
@@ -68,8 +71,10 @@ public class GoogleSheetBusiness {
     public void updateAllProductDetailColumns() throws IOException {
         Collections.sort(SheetContext.sellersData);
         if (SheetContext.sellersData.size() > 0) {
+            long timestamp = (new Date()).getTime();
             List<List<Object>> rows = new ArrayList();
             
+            List<Object> timestamps = new ArrayList();
             List<Object> sellerNames1 = new ArrayList();
             List<Object> prices1 = new ArrayList();
             List<Object> shippings1 = new ArrayList();
@@ -92,6 +97,9 @@ public class GoogleSheetBusiness {
             List<Object> deliveries3 = new ArrayList();
             
             for (SellerData sellerData : SheetContext.sellersData) {
+                
+                timestamps.add(timestamp);
+                
                 sellerNames1.add(sellerData.getProductData1().getSellerName());
                 prices1.add(sellerData.getProductData1().getPrice());
                 shippings1.add(sellerData.getProductData1().getShipping());
@@ -113,6 +121,8 @@ public class GoogleSheetBusiness {
                 types3.add(sellerData.getProductData3().getType());
                 deliveries3.add(sellerData.getProductData3().getDelivery());
             }
+            
+            rows.add(timestamps);
             
             rows.add(sellerNames1);
             rows.add(prices1);
@@ -136,10 +146,10 @@ public class GoogleSheetBusiness {
             rows.add(deliveries3);
             
             try {
-                sheetManagement.setDataInColumns(ApplicationContext.SELLER_NAME_1, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetContext.currentIdex, ApplicationContext.DATA_SHEET_NAME, rows);
+                sheetManagement.setDataInColumns(ApplicationContext.ASIN_CRAWLING, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetContext.currentIdex, ApplicationContext.DATA_SHEET_NAME, rows);
             } catch (IOException ex) {
                 // retry once
-                sheetManagement.setDataInColumns(ApplicationContext.SELLER_NAME_1, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetContext.currentIdex, ApplicationContext.DATA_SHEET_NAME, rows);
+                sheetManagement.setDataInColumns(ApplicationContext.ASIN_CRAWLING, ApplicationContext.WID_3, SheetContext.startIndexOfBatch, SheetContext.currentIdex, ApplicationContext.DATA_SHEET_NAME, rows);
             }
             
             SheetContext.sellersData = Collections.synchronizedList(new ArrayList());

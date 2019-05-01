@@ -10,8 +10,6 @@ import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ResponseMessage;
 import com.thaisoftplus.aup.domain.StartRequest;
 import com.thaisoftplus.aup.thread.Main;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;

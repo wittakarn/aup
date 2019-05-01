@@ -26,4 +26,8 @@ public class SheetContext {
 
     public static Queue<Object> urls = new ConcurrentLinkedQueue();
     public static List<SellerData> sellersData = Collections.synchronizedList(new ArrayList());
+    
+    public static boolean isUrlsEmpty(){
+        return urls == null || urls.isEmpty();
+    }
 }
