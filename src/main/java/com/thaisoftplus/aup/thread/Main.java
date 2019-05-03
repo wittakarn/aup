@@ -9,8 +9,12 @@ import com.thaisoftplus.aup.business.GoogleSheetBusiness;
 import com.thaisoftplus.aup.context.ApplicationContext;
 import static com.thaisoftplus.aup.context.ApplicationContext.sheetSetting;
 import com.thaisoftplus.aup.context.SheetContext;
-import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
+import com.thaisoftplus.aup.domain.AsinUrl;
+import com.thaisoftplus.aup.exception.EnptyRowException;
 import java.io.IOException;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -31,32 +35,37 @@ public class Main implements Runnable {
         if (ApplicationContext.isRunning) {
             ExecutorService executorService = Executors.newFixedThreadPool(3);
             try {
-                SheetManagement sheetManagement = SheetManagement.getInstance();
-                SheetContext.urls = GoogleSheetBusiness.convert2DListToQueue(sheetManagement.getDataInColumns(
+                GoogleSheetBusiness business = new GoogleSheetBusiness();
+                List<List<Object>> url = business.getDataInColumnsWithRetry(
                         ApplicationContext.LINK,
                         ApplicationContext.LINK,
                         SheetContext.startIndexOfBatch,
                         SheetContext.endIndexOfBatch,
-                        ApplicationContext.DATA_SHEET_NAME)
-                );
+                        ApplicationContext.DATA_SHEET_NAME,
+                        1);
 
-                GoogleSheetBusiness business = new GoogleSheetBusiness();
-                business.updateOldPriceColumn();
+                if (url == null) {
+                    SheetContext.isDone = true;
+                } else {
+                    SheetContext.urls = convertUrlColumnsToQueue(url);
 
-                final Future<String> runFuture1 = executorService.submit(new ServiceWorker(1), "done");
-                final Future<String> runFuture2 = executorService.submit(new ServiceWorker(2), "done");
-                final Future<String> runFuture3 = executorService.submit(new ServiceWorker(3), "done");
-                try {
-                    runFuture1.get();
-                    runFuture2.get();
-                    runFuture3.get();
-                } catch (Exception ex) {
-                    logger.error("", ex);
+                    business.updateOldPriceColumn();
+
+                    final Future<String> runFuture1 = executorService.submit(new ServiceWorker(1), "done");
+                    final Future<String> runFuture2 = executorService.submit(new ServiceWorker(2), "done");
+                    final Future<String> runFuture3 = executorService.submit(new ServiceWorker(3), "done");
+                    try {
+                        runFuture1.get();
+                        runFuture2.get();
+                        runFuture3.get();
+                    } catch (Exception ex) {
+                        logger.error("", ex);
+                    }
+
+                    executorService.shutdown();
+
+                    business.updateAllProductDetailColumns();
                 }
-
-                executorService.shutdown();
-
-                business.updateAllProductDetailColumns();
 
                 if (SheetContext.isDone) {
                     SheetContext.isDone = false;
@@ -75,20 +84,28 @@ public class Main implements Runnable {
                     logger.error("", ex);
                 }
                 executeMainThread();
-            } catch (IOException ex) {
+            } catch (IOException | EnptyRowException ex) {
                 logger.error("", ex);
             }
         }
     }
 
+    public static void executeMainThread() {
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new Main());
+        executorService.shutdown();
+    }
+
     private void setNextSheet() {
         ApplicationContext.SHEET_INDEX += 1;
+        SheetContext.currentIdex = ApplicationContext.START_ROW_INDEX;
         SheetContext.startIndexOfBatch = ApplicationContext.START_ROW_INDEX;
         SheetContext.endIndexOfBatch = ApplicationContext.START_ROW_INDEX + SheetContext.CACHE_RANGE - 1;
     }
 
     private void setRerunSheet() {
         ApplicationContext.SHEET_INDEX = 0;
+        SheetContext.currentIdex = ApplicationContext.START_ROW_INDEX;
         SheetContext.startIndexOfBatch = ApplicationContext.START_ROW_INDEX;
         SheetContext.endIndexOfBatch = ApplicationContext.START_ROW_INDEX + SheetContext.CACHE_RANGE - 1;
     }
@@ -98,9 +115,11 @@ public class Main implements Runnable {
         SheetContext.endIndexOfBatch = SheetContext.startIndexOfBatch + SheetContext.CACHE_RANGE - 1;
     }
 
-    public static void executeMainThread() {
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
-        executorService.execute(new Main());
-        executorService.shutdown();
+    private static Queue<AsinUrl> convertUrlColumnsToQueue(List<List<Object>> rows) {
+        Queue queue = new ConcurrentLinkedQueue();
+        for (int i = 0; i < rows.size(); i++) {
+            queue.add(new AsinUrl(i, rows.get(i).get(0)));
+        }
+        return queue;
     }
 }

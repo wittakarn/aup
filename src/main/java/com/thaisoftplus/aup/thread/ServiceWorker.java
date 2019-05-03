@@ -11,7 +11,6 @@ import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.exception.BatchEndException;
 import com.thaisoftplus.aup.exception.EnptyRowException;
-import com.thaisoftplus.aup.exception.NotRunningException;
 import com.thaisoftplus.aup.page.amazon.ProductPage;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
@@ -51,10 +50,12 @@ public class ServiceWorker implements Runnable {
             logger.info(ex.getMessage());
         } catch (Exception ex) {
             logger.error("", ex);
+        } finally {
+            closeSeleniumBrowser();
         }
     }
 
-    private void updateAmasonProductData() throws Exception {
+    private void updateAmasonProductData() throws BatchEndException, EnptyRowException {
         GoogleSheetBusiness business = new GoogleSheetBusiness();
 
         driver = new ChromeDriver(options);
@@ -70,7 +71,9 @@ public class ServiceWorker implements Runnable {
     }
 
     private void closeSeleniumBrowser() {
-        driver.quit();
-        driver = null;
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
 }

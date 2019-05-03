@@ -6,12 +6,12 @@
 package com.thaisoftplus.aup.page.amazon;
 
 import com.thaisoftplus.aup.context.SheetContext;
+import com.thaisoftplus.aup.domain.AsinUrl;
 import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.exception.BatchEndException;
 import com.thaisoftplus.aup.exception.EnptyRowException;
 import com.thaisoftplus.aup.page.BasePage;
 import com.thaisoftplus.aup.util.PageHelper;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,16 +44,15 @@ public class ProductPage extends BasePage implements Serializable {
     public int openProductPage() throws BatchEndException, EnptyRowException {
         int currentIndex = 0;
         if (SheetContext.isUrlsEmpty()) {
-            closeSeleniumBrowser();
             throw new BatchEndException("SheetContext.urls is empty");
         } else {
-            Object url = SheetContext.urls.poll();
-            if ("".endsWith(url.toString().trim())) {
-                closeSeleniumBrowser();
+            AsinUrl asinUrl = SheetContext.urls.poll();
+            if ("".endsWith(asinUrl.getUrl().toString().trim())) {
                 throw new EnptyRowException("URL in next row is empty");
             } else {
-                currentIndex = SheetContext.currentIdex++;
-                driver.get(url.toString());
+                currentIndex = asinUrl.getIndex();
+                SheetContext.currentIdex++;
+                driver.get(asinUrl.getUrl().toString());
             }
         }
 

@@ -151,7 +151,9 @@ public class BasePage implements Serializable {
     }
 
     protected void closeSeleniumBrowser() {
-        driver.quit();
-        driver = null;
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
 }

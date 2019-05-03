@@ -18,6 +18,13 @@ public class SellerData implements Comparable<SellerData>, Serializable {
     private ProductData productData2;
     private ProductData productData3;
 
+    public SellerData() {
+    }
+
+    public SellerData(int rowIndex) {
+        this.rowIndex = rowIndex;
+    }
+
     public int getRowIndex() {
         return rowIndex;
     }

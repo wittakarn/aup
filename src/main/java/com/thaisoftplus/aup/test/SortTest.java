@@ -6,17 +6,12 @@
 package com.thaisoftplus.aup.test;
 
 import com.thaisoftplus.aup.domain.SellerData;
-import static com.thaisoftplus.aup.test.SortTest.numbers;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  *
@@ -30,16 +25,11 @@ public class SortTest {
     public static ExecutorService exService;
 
     public static void main(String[] args) {
-        SellerData s1 = new SellerData();
-        s1.setRowIndex(10);
-        SellerData s2 = new SellerData();
-        s2.setRowIndex(1);
-        SellerData s3 = new SellerData();
-        s3.setRowIndex(7);
-        SellerData s4 = new SellerData();
-        s4.setRowIndex(101);
-        SellerData s5 = new SellerData();
-        s5.setRowIndex(17);
+        SellerData s1 = new SellerData(10);
+        SellerData s2 = new SellerData(1);
+        SellerData s3 = new SellerData(7);
+        SellerData s4 = new SellerData(101);
+        SellerData s5 = new SellerData(17);
 
         List<SellerData> sellers = Collections.synchronizedList(new ArrayList());
         sellers.add(s1);

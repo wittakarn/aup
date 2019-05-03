@@ -5,6 +5,7 @@
  */
 package com.thaisoftplus.aup.context;
 
+import com.thaisoftplus.aup.domain.AsinUrl;
 import com.thaisoftplus.aup.domain.SellerData;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +25,7 @@ public class SheetContext {
     public static int endIndexOfBatch;
     public static boolean isDone = false;
 
-    public static Queue<Object> urls = new ConcurrentLinkedQueue();
+    public static Queue<AsinUrl> urls = new ConcurrentLinkedQueue();
     public static List<SellerData> sellersData = Collections.synchronizedList(new ArrayList());
     
     public static boolean isUrlsEmpty(){
