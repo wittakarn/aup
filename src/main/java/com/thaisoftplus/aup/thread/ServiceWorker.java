@@ -56,17 +56,19 @@ public class ServiceWorker implements Runnable {
     }
 
     private void updateAmasonProductData() throws BatchEndException, EnptyRowException {
-        GoogleSheetBusiness business = new GoogleSheetBusiness();
+        if (ApplicationContext.isRunning) {
+            GoogleSheetBusiness business = new GoogleSheetBusiness();
 
-        driver = new ChromeDriver(options);
-        ProductPage productPage = new ProductPage(driver);
-        int currentIndex = productPage.openProductPage();
-        List<ProductData> productDatas = productPage.getProductsData();
-        business.keepAllProductDetailColumnInCache(currentIndex, productDatas);
+            driver = new ChromeDriver(options);
+            ProductPage productPage = new ProductPage(driver);
+            int currentIndex = productPage.openProductPage();
+            List<ProductData> productDatas = productPage.getProductsData();
+            business.keepAllProductDetailColumnInCache(currentIndex, productDatas);
 
-        closeSeleniumBrowser();
-        if (!SheetContext.isUrlsEmpty()) {
-            updateAmasonProductData();
+            closeSeleniumBrowser();
+            if (!SheetContext.isUrlsEmpty()) {
+                updateAmasonProductData();
+            }
         }
     }
 
