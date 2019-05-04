@@ -75,7 +75,7 @@ public class GoogleSheetBusiness {
     }
 
     public void updateAllProductDetailColumns() throws IOException {
-        if (SheetContext.sellersData.size() > 0) {
+        if (ApplicationContext.isRunning && SheetContext.sellersData.size() > 0) {
             long timestamp = (new Date()).getTime();
             List<List<Object>> rows = new ArrayList();
 
