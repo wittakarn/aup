@@ -25,6 +25,7 @@ public class ApplicationContext {
     public static final String TOKENS_DIRECTORY_PATH = "D:\\aup\\tokens";
     public static final String CREDENTIALS_FILE_PATH = "D:\\aup\\credentials.json";
     public static final String USER_DATA_PATH_CONFIG = "USER_DATA_PATH";
+    public static final String THREAD_SIZE = "THREAD_SIZE";
 
     public static int SHEET_INDEX = 0;
     public static int START_ROW_INDEX = 3;

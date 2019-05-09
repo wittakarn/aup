@@ -17,7 +17,6 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +32,8 @@ public class Main implements Runnable {
     public void run() {
         logger.info("Main thread start...");
         if (ApplicationContext.isRunning) {
-            ExecutorService executorService = Executors.newFixedThreadPool(3);
+            int threadSize = Integer.parseInt(ApplicationContext.configData.get(ApplicationContext.THREAD_SIZE));
+            ExecutorService executorService = Executors.newFixedThreadPool(threadSize);
             try {
                 GoogleSheetBusiness business = new GoogleSheetBusiness();
                 List<List<Object>> url = business.getDataInColumnsWithRetry(
@@ -51,13 +51,10 @@ public class Main implements Runnable {
 
                     business.updateOldPriceColumn();
 
-                    final Future<String> runFuture1 = executorService.submit(new ServiceWorker(1), "done");
-                    final Future<String> runFuture2 = executorService.submit(new ServiceWorker(2), "done");
-                    final Future<String> runFuture3 = executorService.submit(new ServiceWorker(3), "done");
                     try {
-                        runFuture1.get();
-                        runFuture2.get();
-                        runFuture3.get();
+                        for (int i = 0; i < threadSize; i++) {
+                            executorService.submit(new ServiceWorker(i + 1), "done").get();
+                        }
                     } catch (Exception ex) {
                         logger.error("", ex);
                     }
@@ -79,7 +76,8 @@ public class Main implements Runnable {
                 }
 
                 try {
-                    Thread.sleep(500);
+                    int random = (int) (Math.random() * 10 + 1);
+                    Thread.sleep(random * 1000);
                 } catch (InterruptedException ex) {
                     logger.error("", ex);
                 }
