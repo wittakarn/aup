@@ -12,11 +12,13 @@ import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.AsinUrl;
 import com.thaisoftplus.aup.exception.EnptyRowException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,9 +53,14 @@ public class Main implements Runnable {
 
                     business.updateOldPriceColumn();
 
+                    List<Future<String>> features = new ArrayList();
+                    for (int i = 0; i < threadSize; i++) {
+                        Future<String> runFuture = executorService.submit(new ServiceWorker(i + 1), "done");
+                        features.add(runFuture);
+                    }
                     try {
                         for (int i = 0; i < threadSize; i++) {
-                            executorService.submit(new ServiceWorker(i + 1), "done").get();
+                            features.get(i).get();
                         }
                     } catch (Exception ex) {
                         logger.error("", ex);
