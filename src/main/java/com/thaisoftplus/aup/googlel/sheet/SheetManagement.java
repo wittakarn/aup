@@ -21,12 +21,10 @@ import java.util.List;
  */
 public class SheetManagement extends Sheet implements Serializable {
 
-    private static int ROW_INDEX;
     private static SheetManagement instance;
 
     public static SheetManagement getInstance() {
         if (instance == null) {
-            ROW_INDEX = ApplicationContext.START_ROW_INDEX;
             instance = new SheetManagement();
         }
         return instance;
@@ -54,13 +52,13 @@ public class SheetManagement extends Sheet implements Serializable {
         return rawData;
     }
 
-    public String getDataInColumn(String column, String tabName) throws IOException {
+    public String getDataInColumn(String column, String tabName, int rowIndex) throws IOException {
         String range = String.format("'%s'!%s%d:%s%d",
                 tabName,
                 column,
-                ROW_INDEX,
+                rowIndex,
                 column,
-                ROW_INDEX);
+                rowIndex);
         String value = read(range);
         return value == null ? "" : value;
     }
@@ -75,13 +73,13 @@ public class SheetManagement extends Sheet implements Serializable {
         return reads(range);
     }
 
-    public BatchUpdateValuesResponse setDataInColumn(String column, String tabName, String[] value) throws IOException {
+    public BatchUpdateValuesResponse setDataInColumn(String column, String tabName, String[] value, int rowIndex) throws IOException {
         String range = String.format("'%s'!%s%d:%s%d",
                 tabName,
                 column,
-                ROW_INDEX,
+                rowIndex,
                 column,
-                ROW_INDEX);
+                rowIndex);
         List<List<Object>> values = Arrays.asList(Arrays.asList(value));
         List<ValueRange> data = new ArrayList<ValueRange>();
         data.add(new ValueRange()
@@ -110,17 +108,5 @@ public class SheetManagement extends Sheet implements Serializable {
                 .setValueInputOption("RAW")
                 .setData(data);
         return getSheets().spreadsheets().values().batchUpdate(ApplicationContext.getSheetId(), body).execute();
-    }
-
-    public static void updateNextIndex() {
-        ROW_INDEX += 1;
-    }
-
-    public static int getRowIndex() {
-        return ROW_INDEX;
-    }
-
-    public static void setRowIndex(int newRowIndex) {
-        ROW_INDEX = newRowIndex;
     }
 }

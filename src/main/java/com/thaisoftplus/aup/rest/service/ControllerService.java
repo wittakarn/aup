@@ -9,9 +9,7 @@ import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ResponseMessage;
 import com.thaisoftplus.aup.domain.StartRequest;
-import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
-import com.thaisoftplus.aup.thread.ServiceWorker;
-import java.util.concurrent.Executors;
+import com.thaisoftplus.aup.thread.Main;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -46,10 +44,10 @@ public class ControllerService {
             if (!ApplicationContext.isRunning) {
                 ApplicationContext.isRunning = true;
                 ApplicationContext.SHEET_INDEX = startRequest.getIndex();
+                SheetContext.currentIdex = ApplicationContext.START_ROW_INDEX;
                 SheetContext.startIndexOfBatch = ApplicationContext.START_ROW_INDEX;
                 SheetContext.endIndexOfBatch = ApplicationContext.START_ROW_INDEX + SheetContext.CACHE_RANGE - 1;
-                SheetManagement.setRowIndex(ApplicationContext.START_ROW_INDEX);
-                Executors.newFixedThreadPool(1).execute(new ServiceWorker());
+                Main.executeMainThread();
                 resp.setMessage(String.format("โปรแกรมเริ่มทำงาน"));
             } else {
                 resp.setMessage(String.format("โปรแกรมทำงานอยู่"));

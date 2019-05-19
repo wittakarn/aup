@@ -5,15 +5,13 @@
  */
 package com.thaisoftplus.aup.page.amazon;
 
-import com.thaisoftplus.aup.business.GoogleSheetBusiness;
-import com.thaisoftplus.aup.context.ApplicationContext;
 import com.thaisoftplus.aup.context.SheetContext;
+import com.thaisoftplus.aup.domain.AsinUrl;
 import com.thaisoftplus.aup.domain.ProductData;
+import com.thaisoftplus.aup.exception.BatchEndException;
 import com.thaisoftplus.aup.exception.EnptyRowException;
-import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import com.thaisoftplus.aup.page.BasePage;
 import com.thaisoftplus.aup.util.PageHelper;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,29 +36,28 @@ public class ProductPage extends BasePage implements Serializable {
     private static final String DELIVERY_XPATH = "*//ul[contains(@class ,'olpFastTrack')]";
 
     private static final int MAX_OPTION_SIZE = 3;
-    private final SheetManagement sheetManagement;
 
     public ProductPage(WebDriver driver) {
         super(driver);
-        this.sheetManagement = SheetManagement.getInstance();
     }
 
-    public void openProductPage() throws IOException, EnptyRowException {
-        String url = null;
-
-        if (SheetManagement.getRowIndex() == SheetContext.startIndexOfBatch) {
-            SheetContext.urls = GoogleSheetBusiness.convert2DListToList(this.sheetManagement.getDataInColumns(ApplicationContext.LINK, ApplicationContext.LINK, SheetContext.startIndexOfBatch, SheetContext.endIndexOfBatch, ApplicationContext.DATA_SHEET_NAME));
+    public int openProductPage() throws BatchEndException, EnptyRowException {
+        int currentIndex = 0;
+        if (SheetContext.isUrlsEmpty()) {
+            throw new BatchEndException("SheetContext.urls is empty");
+        } else {
+            AsinUrl asinUrl = SheetContext.urls.poll();
+            if ("".endsWith(asinUrl.getUrl().toString().trim())) {
+                throw new EnptyRowException("URL in next row is empty");
+            } else {
+                currentIndex = asinUrl.getIndex();
+                SheetContext.currentIdex++;
+                driver.get(asinUrl.getUrl().toString());
+            }
         }
-        if (SheetContext.urls != null && SheetContext.urls.size() > 0) {
-            url = SheetContext.urls.remove(0).toString();
-        }
 
-        if (url == null || "".equals(url.trim())) {
-            throw new EnptyRowException("URL in next row is " + url);
-        }
-
-        driver.get(url);
         PageHelper.waitUtilPageLoad(driver);
+        return currentIndex;
     }
 
     public List<ProductData> getProductsData() {

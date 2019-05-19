@@ -19,7 +19,6 @@ export class Layout extends React.Component<Props, {}> {
             <div className="container container--center" >
                 <SheetSettingPage />
                 <DataSettingPage />
-                <ApiSettingPage />
             </div>
         );
     }

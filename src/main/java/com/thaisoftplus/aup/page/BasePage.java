@@ -149,4 +149,11 @@ public class BasePage implements Serializable {
         JavascriptExecutor executor = (JavascriptExecutor) driver;
         executor.executeScript("document.querySelector('" + querySelector + "').click()");
     }
+
+    protected void closeSeleniumBrowser() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+    }
 }

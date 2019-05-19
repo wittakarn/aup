@@ -5,11 +5,13 @@
  */
 package com.thaisoftplus.aup.domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author witta
  */
-public class ProductData {
+public class ProductData implements Serializable{
 
     private String sellerName;
     private String price;
@@ -19,6 +21,8 @@ public class ProductData {
     private String delivery;
     
     public ProductData(){
+        sellerName = "null" ;
+        price = "null";
         shipping = "null";
         type = "null";
         addOn = "null";
