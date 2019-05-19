@@ -22,8 +22,8 @@ public class ApplicationContext {
 
     public static final String CHROME_DRIVER_PATH = "aup";
     public static final String APPLICATION_NAME = "aup";
-    public static final String TOKENS_DIRECTORY_PATH = "D:\\aup\\tokens";
-    public static final String CREDENTIALS_FILE_PATH = "D:\\aup\\credentials.json";
+    public static final String TOKENS_DIRECTORY_PATH = "TOKENS_DIRECTORY_PATH";
+    public static final String CREDENTIALS_FILE_PATH = "CREDENTIALS_FILE_PATH";
     public static final String USER_DATA_PATH_CONFIG = "USER_DATA_PATH";
     public static final String THREAD_SIZE = "THREAD_SIZE";
 

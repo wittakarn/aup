@@ -45,7 +45,7 @@ public class Main implements Runnable {
                         SheetContext.endIndexOfBatch,
                         ApplicationContext.DATA_SHEET_NAME,
                         1);
-
+                logger.debug("url.size() = " + url.size());
                 if (url == null) {
                     SheetContext.isDone = true;
                 } else {
@@ -55,6 +55,7 @@ public class Main implements Runnable {
 
                     List<Future<String>> features = new ArrayList();
                     for (int i = 0; i < threadSize; i++) {
+                        logger.debug("start ServiceWorker" + i);
                         Future<String> runFuture = executorService.submit(new ServiceWorker(i + 1), "done");
                         features.add(runFuture);
                     }

@@ -33,9 +33,13 @@ public class ServiceWorker implements Runnable {
     public ServiceWorker(int threadNumber) {
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        options.addArguments("--ignore-certificate-errors");
+        options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems(linux)
         options.addArguments("user-data-dir=" + ApplicationContext.getUserDataPath() + threadNumber);
         options.addArguments("start-maximized");
-        options.addArguments("--no-sandbox");
+        
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
     }
 
