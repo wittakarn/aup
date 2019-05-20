@@ -68,7 +68,7 @@ public class InitialConfig extends HttpServlet {
                 logger.info("HashMap {} : {}", key, value);
             }
 
-            System.setProperty("webdriver.chrome.driver", FileHelper.getExistPaths(new String[]{"/home/vnc/.config/google-chrome/chromedriver", "D:\\chromedriver.exe"}));
+            System.setProperty("webdriver.gecko.driver", ApplicationContext.getBrowserDriverPath());
             sheetSettingSessionBeanLocal.init();
             userSettingSessionBeanLocal.init();
             apiSettingSessionBeanLocal.init();
