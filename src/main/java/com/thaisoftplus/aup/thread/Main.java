@@ -45,10 +45,10 @@ public class Main implements Runnable {
                         SheetContext.endIndexOfBatch,
                         ApplicationContext.DATA_SHEET_NAME,
                         1);
-                logger.debug("url.size() = " + url.size());
                 if (url == null) {
                     SheetContext.isDone = true;
                 } else {
+                    logger.debug("url.size() = " + url.size());
                     SheetContext.urls = convertUrlColumnsToQueue(url);
 
                     business.updateOldPriceColumn();
