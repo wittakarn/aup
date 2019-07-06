@@ -4,7 +4,7 @@
 
     <groupId>com.thaisoftplus</groupId>
     <artifactId>aup</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>war</packaging>
 
     <name>aup</name>

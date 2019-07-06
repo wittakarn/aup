@@ -84,7 +84,7 @@ public class Main implements Runnable {
                 }
 
                 try {
-                    int random = (int) (Math.random() * 5 + 1);
+                    int random = (int) (Math.random() * 10 + 1);
                     Thread.sleep(random * 1000);
                 } catch (InterruptedException ex) {
                     logger.error("", ex);

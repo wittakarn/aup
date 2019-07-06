@@ -1,5 +1,5 @@
 {
-  "name": "botorder",
+  "name": "aup",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -30,12 +30,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wittakarn/botorder.git"
+    "url": "git+https://github.com/wittakarn/aup.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wittakarn/botorder/issues"
+    "url": "https://github.com/wittakarn/aup/issues"
   },
-  "homepage": "https://github.com/wittakarn/botorder#readme"
+  "homepage": "https://github.com/wittakarn/aup#readme"
 }

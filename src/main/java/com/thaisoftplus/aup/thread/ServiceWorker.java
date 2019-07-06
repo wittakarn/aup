@@ -13,6 +13,7 @@ import com.thaisoftplus.aup.exception.BatchEndException;
 import com.thaisoftplus.aup.exception.EnptyRowException;
 import com.thaisoftplus.aup.page.amazon.ProductPage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -52,7 +53,7 @@ public class ServiceWorker implements Runnable {
             SheetContext.isDone = true;
             logger.info(ex.getMessage());
         } catch (Exception ex) {
-            logger.error("", ex);
+            logger.error("unexpected error", ex);
         } finally {
             quitSeleniumBrowser();
         }
@@ -65,7 +66,15 @@ public class ServiceWorker implements Runnable {
 
             ProductPage productPage = new ProductPage(driver);
             int currentIndex = productPage.openProductPage();
-            List<ProductData> productDatas = productPage.getProductsData();
+            
+            List<ProductData> productDatas = null;
+            try {
+                productDatas = productPage.getProductsData();
+            } catch (Exception ex) {
+                logger.error("getProductsData error", ex);
+                productDatas = new ArrayList<>();
+            }
+
             business.keepAllProductDetailColumnInCache(currentIndex, productDatas);
 
             if (!SheetContext.isUrlsEmpty()) {
