@@ -45,16 +45,17 @@ public class Main implements Runnable {
                         SheetContext.endIndexOfBatch,
                         ApplicationContext.DATA_SHEET_NAME,
                         1);
-
                 if (url == null) {
                     SheetContext.isDone = true;
                 } else {
+                    logger.debug("url.size() = " + url.size());
                     SheetContext.urls = convertUrlColumnsToQueue(url);
 
                     business.updateOldPriceColumn();
 
                     List<Future<String>> features = new ArrayList();
                     for (int i = 0; i < threadSize; i++) {
+                        logger.debug("start ServiceWorker" + i);
                         Future<String> runFuture = executorService.submit(new ServiceWorker(i + 1), "done");
                         features.add(runFuture);
                     }

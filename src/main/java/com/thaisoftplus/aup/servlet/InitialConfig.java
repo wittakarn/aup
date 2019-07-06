@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import com.thaisoftplus.aup.ejb.DataSettingSessionBeanLocal;
 import com.thaisoftplus.aup.ejb.SheetSettingSessionBeanLocal;
+import com.thaisoftplus.aup.util.FileHelper;
 
 /**
  *
@@ -56,7 +57,7 @@ public class InitialConfig extends HttpServlet {
         HashMap<String, String> configData = ApplicationContext.configData;
         configData.clear();
         try {
-            InputStream input = new FileInputStream("D:\\aup\\config\\aup.properties");
+            InputStream input = new FileInputStream(FileHelper.getExistPaths(new String[]{"/opt/aup/config/aup.properties", "D:\\aup\\config\\aup.properties"}));
             Properties reportProperties = new Properties();
             reportProperties.load(input);
             Enumeration<?> e = reportProperties.propertyNames();
@@ -66,7 +67,8 @@ public class InitialConfig extends HttpServlet {
                 configData.put(key, value);
                 logger.info("HashMap {} : {}", key, value);
             }
-            System.setProperty("webdriver.chrome.driver", "D:\\chromedriver.exe");
+
+            System.setProperty("webdriver.gecko.driver", ApplicationContext.getBrowserDriverPath());
             sheetSettingSessionBeanLocal.init();
             userSettingSessionBeanLocal.init();
             apiSettingSessionBeanLocal.init();

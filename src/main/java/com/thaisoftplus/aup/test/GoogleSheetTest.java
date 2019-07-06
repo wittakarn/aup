@@ -10,8 +10,6 @@ import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.thaisoftplus.aup.googlel.sheet.SheetManagement;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

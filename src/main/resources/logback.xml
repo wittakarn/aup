@@ -13,7 +13,8 @@
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>D:/log/aup.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!--fileNamePattern>D:/log/aup.%d{yyyy-MM-dd}.%i.log</fileNamePattern-->
+            <fileNamePattern>/home/vnc/Documents/log/aup.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy
                 class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 50MB -->

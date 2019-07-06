@@ -22,8 +22,11 @@ public class ApplicationContext {
 
     public static final String CHROME_DRIVER_PATH = "aup";
     public static final String APPLICATION_NAME = "aup";
-    public static final String TOKENS_DIRECTORY_PATH = "D:\\aup\\tokens";
-    public static final String CREDENTIALS_FILE_PATH = "D:\\aup\\credentials.json";
+    public static final String BROWSE_DRIVER_PATH = "BROWSE_DRIVER_PATH";
+    public static final String BROWSE_BINARY_PATH = "BROWSE_BINARY_PATH";
+    public static final String BROWSE_PROFILE_PATH = "BROWSE_PROFILE_PATH";
+    public static final String TOKENS_DIRECTORY_PATH = "TOKENS_DIRECTORY_PATH";
+    public static final String CREDENTIALS_FILE_PATH = "CREDENTIALS_FILE_PATH";
     public static final String USER_DATA_PATH_CONFIG = "USER_DATA_PATH";
     public static final String THREAD_SIZE = "THREAD_SIZE";
 
@@ -60,7 +63,25 @@ public class ApplicationContext {
     public static String getUserDataPath() {
         return ApplicationContext.configData.get(USER_DATA_PATH_CONFIG) != null
                 ? ApplicationContext.configData.get(USER_DATA_PATH_CONFIG)
-                : "D:\\chrome-profiles\\profile";
+                : "D:\\firefox-profiles\\profile";
+    }
+    
+    public static String getBrowserDriverPath() {
+        return ApplicationContext.configData.get(BROWSE_DRIVER_PATH) != null
+                ? ApplicationContext.configData.get(BROWSE_DRIVER_PATH)
+                : "D:\\geckodriver.exe";
+    }
+    
+    public static String getBrowserBinaryPath() {
+        return ApplicationContext.configData.get(BROWSE_BINARY_PATH) != null
+                ? ApplicationContext.configData.get(BROWSE_BINARY_PATH)
+                : "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+    }
+    
+    public static String getBrowserProfilePath() {
+        return ApplicationContext.configData.get(BROWSE_PROFILE_PATH) != null
+                ? ApplicationContext.configData.get(BROWSE_PROFILE_PATH)
+                : "D:\\firefox-profiles/profile";
     }
 
     public static String getSheetId() {

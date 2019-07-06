@@ -68,13 +68,13 @@ public class Sheet implements Serializable {
      */
     protected Credential getCredentials(final NetHttpTransport httpTransport) throws IOException {
         // Load client secrets.
-        InputStream in = new FileInputStream(ApplicationContext.CREDENTIALS_FILE_PATH);
+        InputStream in = new FileInputStream(ApplicationContext.configData.get(ApplicationContext.CREDENTIALS_FILE_PATH));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(ApplicationContext.TOKENS_DIRECTORY_PATH)))
+                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(ApplicationContext.configData.get(ApplicationContext.TOKENS_DIRECTORY_PATH))))
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
