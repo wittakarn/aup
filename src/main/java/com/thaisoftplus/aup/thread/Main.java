@@ -11,6 +11,7 @@ import static com.thaisoftplus.aup.context.ApplicationContext.sheetSetting;
 import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.AsinUrl;
 import com.thaisoftplus.aup.exception.EnptyRowException;
+import com.thaisoftplus.aup.util.DateHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,9 +100,15 @@ public class Main implements Runnable {
     }
 
     public static void executeMainThread() {
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
-        executorService.execute(new Main());
-        executorService.shutdown();
+        if (isBreakTime()) {
+            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.schedule(new Main(), 3, TimeUnit.HOURS);
+            scheduler.shutdown();
+        } else {
+            ExecutorService executorService = Executors.newFixedThreadPool(1);
+            executorService.execute(new Main());
+            executorService.shutdown();
+        }
     }
 
     private void setNextSheet() {
@@ -127,5 +136,10 @@ public class Main implements Runnable {
             queue.add(new AsinUrl(i, rows.get(i).get(0)));
         }
         return queue;
+    }
+
+    private static boolean isBreakTime() {
+        int hour = DateHelper.getCurrentHour("Asia/Bangkok");
+        return hour > 13 && hour < 16;
     }
 }

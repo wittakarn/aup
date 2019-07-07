@@ -10,6 +10,7 @@ import com.thaisoftplus.aup.domain.AsinUrl;
 import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.exception.BatchEndException;
 import com.thaisoftplus.aup.exception.EnptyRowException;
+import com.thaisoftplus.aup.exception.OpenUrlException;
 import com.thaisoftplus.aup.page.BasePage;
 import com.thaisoftplus.aup.util.PageHelper;
 import java.io.Serializable;
@@ -18,12 +19,16 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Administrator
  */
 public class ProductPage extends BasePage implements Serializable {
+    
+    private static final Logger logger = LoggerFactory.getLogger(ProductPage.class);
 
     private static final String BUY_OPTIONS_LIST_XPATH = "*//div[@id='olpOfferList']";
     private static final String BUY_OPTIONS_XPATH = BUY_OPTIONS_LIST_XPATH + "//div[contains(@class ,'olpOffer')]";
@@ -41,7 +46,7 @@ public class ProductPage extends BasePage implements Serializable {
         super(driver);
     }
 
-    public int openProductPage() throws BatchEndException, EnptyRowException {
+    public int openProductPage() throws BatchEndException, EnptyRowException, OpenUrlException {
         int currentIndex = 0;
         if (SheetContext.isUrlsEmpty()) {
             throw new BatchEndException("SheetContext.urls is empty");
@@ -52,7 +57,11 @@ public class ProductPage extends BasePage implements Serializable {
             } else {
                 currentIndex = asinUrl.getIndex();
                 SheetContext.currentIdex++;
-                driver.get(asinUrl.getUrl().toString());
+                try {
+                    driver.get(asinUrl.getUrl().toString());
+                } catch (Exception ex) {
+                    throw new OpenUrlException(ex, currentIndex);
+                }
             }
         }
 

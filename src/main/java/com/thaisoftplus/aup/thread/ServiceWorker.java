@@ -11,6 +11,7 @@ import com.thaisoftplus.aup.context.SheetContext;
 import com.thaisoftplus.aup.domain.ProductData;
 import com.thaisoftplus.aup.exception.BatchEndException;
 import com.thaisoftplus.aup.exception.EnptyRowException;
+import com.thaisoftplus.aup.exception.OpenUrlException;
 import com.thaisoftplus.aup.page.amazon.ProductPage;
 import java.io.File;
 import java.util.ArrayList;
@@ -65,13 +66,19 @@ public class ServiceWorker implements Runnable {
             GoogleSheetBusiness business = new GoogleSheetBusiness();
 
             ProductPage productPage = new ProductPage(driver);
-            int currentIndex = productPage.openProductPage();
-            
-            List<ProductData> productDatas = null;
+            int currentIndex;
+            List<ProductData> productDatas;
             try {
-                productDatas = productPage.getProductsData();
-            } catch (Exception ex) {
-                logger.error("getProductsData error", ex);
+                currentIndex = productPage.openProductPage();
+                try {
+                    productDatas = productPage.getProductsData();
+                } catch (Exception ex) {
+                    logger.error("getProductsData error", ex);
+                    productDatas = new ArrayList<>();
+                }
+            } catch (OpenUrlException oue) {
+                logger.error("", oue);
+                currentIndex = oue.getRowIndex();
                 productDatas = new ArrayList<>();
             }
 
