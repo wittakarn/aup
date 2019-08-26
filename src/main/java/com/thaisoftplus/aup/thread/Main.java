@@ -140,6 +140,6 @@ public class Main implements Runnable {
 
     private static boolean isBreakTime() {
         int hour = DateHelper.getCurrentHour("Asia/Bangkok");
-        return hour > 13 && hour < 16;
+        return hour > 13 && hour < 19;
     }
 }
