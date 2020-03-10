@@ -110,7 +110,8 @@ public class ProductPage extends BasePage implements Serializable {
                 if (primeElement != null) {
                     pd.setType("prime");
                 }
-                if (getDefaultText(deliveryElement).toLowerCase().contains("want it deliver")) {
+                String deliveryDescText = getDefaultText(deliveryElement).toLowerCase();
+                if (!deliveryDescText.contains("back-ordered") && !deliveryDescText.contains("temporarily out of stock")) {
                     pd.setDelivery("WID");
                 }
                 pds.add(pd);
