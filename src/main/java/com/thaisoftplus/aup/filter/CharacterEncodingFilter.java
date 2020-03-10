@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 
 /**
  *
- * @author Nuttipol
+ * @author Wittakarn
  *
  */
 public class CharacterEncodingFilter implements Filter {

@@ -17,7 +17,7 @@ public class Authorization implements Serializable {
     private String password;
 
     /*
-    rufussa6594@gmail.com   VS8X0UYUDz8A    Alm0ndChocoL8   salpinx3280@gmail.com
+    rufussa6594@gmail.com   KooW@dg341    Alm0ndChocoL8   salpinx3280@gmail.com
     envenom2257@gmail.com   0wcYlpf2mbnY    sunday9630  salpinx3280@gmail.com
     */
     public Authorization(String userName, String password) {
